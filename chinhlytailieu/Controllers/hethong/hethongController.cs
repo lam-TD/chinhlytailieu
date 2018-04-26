@@ -267,5 +267,38 @@ namespace chinhlytailieu.Controllers.hethong
             else { return Json("1", JsonRequestBehavior.AllowGet); }
         }
 
+
+        //====== QUAN LY NHOM NGUOI DUNG ======
+        public string ht_qlnhomnguoidung_Load()
+        {
+            return dataAsset.data.outputdata("ht_qlnhomnguoidung_Load");
+        }
+
+        public string ht_qlnhomnguoidung_LoadDSTaikhoan(string manhom)
+        {
+            string[] namepara = { "@manhom" };
+            object[] valuepara = { manhom };
+            return dataAsset.data.outputdata("ht_qlnhomnguoidung_LoadDSTaikhoan", namepara, valuepara);
+        }
+
+        public JsonResult ht_qlnhomnguoidung_Them(int type, nhom n)
+        {
+            string[] namepara = { "@MANHOM", "@TENNHOM" };
+            object[] valuepara = { n.Manhom, n.Tennhom };
+            string result = string.Empty;
+            switch (type)
+            {
+                case 1:
+                    if (dataAsset.data.inputdata("ht_qlnhomnguoidung_Them", namepara, valuepara)) { result = "1"; }
+                    else { result = "-1"; }
+                    break;
+                case 2:
+                    if (dataAsset.data.inputdata("ht_quanlynguoidung_Sua", namepara, valuepara)) { result = "1"; }
+                    else { result = "-1"; }
+                    break;
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

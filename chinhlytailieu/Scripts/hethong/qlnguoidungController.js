@@ -1,12 +1,13 @@
 ﻿app.controller("qlnguoidungController", function ($scope, $http) {
     $scope.nhomchucnang = "Quản lý người dùng";
-    $scope.chucnang = "Quản lý chức vụ";
+    $scope.chucnang = "Quản lý nhóm người dùng";
 
     $scope.btnSua = true;
     $scope.btnThem = true;
 
     $scope.hiddenText = true;
     
+    $scope.flag = false; //người dùng thêm sai giữ lịa thông tin các trường
 
     // load co quan
     $http({
@@ -93,6 +94,7 @@
     $scope.modal = function (state) {
         $scope.state = state;
         if (state == "add") {
+            if (!$scope.flag) { $scope.nd = null; }
             $scope.hiddenText = true;
         }
         else { $scope.hiddenText = false; }
@@ -111,7 +113,6 @@
                 }
                 else {
                     return false;
-                    console.log("lams");
                 }
             }, function (response) {
                 alert("Loi cmnr");
@@ -127,6 +128,7 @@
         var username = $scope.nd.username;
         if ($scope.nd.chucvu == null || $scope.nd.bophan == null) {
             alert("Phòng hoặc chức vụ chưa được chọn!");
+            $scope.flag = true;
         }
         else {
             if (state == "add") {
@@ -137,6 +139,7 @@
                     }).then(function success(response) {
                         if (parseInt(response.data) == 1) {
                             alert("Tên đăng nhập đã tồn tại");
+                            $scope.flag = true;
                         }
                         else {
                             var mk = $scope.nd.password;
@@ -152,7 +155,8 @@
                                     }).then(function success(response) {
                                         if (response.data == "1") {
                                             alert(status);
-                                            $scope.nd = null;
+                                            $scope.flag = false;
+                                            
                                             $http({
                                                 method: 'GET',
                                                 url: '/hethong/DanhSachChucVu'

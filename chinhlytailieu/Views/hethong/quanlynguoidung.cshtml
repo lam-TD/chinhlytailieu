@@ -240,7 +240,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr dir-paginate="u in userList |itemsPerPage:15" ng-click="clickDanhSach(u)" style="cursor: pointer;">
+                                                    <tr dir-paginate="u in userList |itemsPerPage:12" ng-click="clickDanhSach(u)" style="cursor: pointer;">
                                                         <td>{{u.hoten}}</td>
                                                         <td>{{u.USERNAME}}</td>
                                                         <td>{{u.TENCHUCVU}}</td>
@@ -252,7 +252,7 @@
                                             </table>
                                         </div>
 
-                                        <dir-pagination-controls max-size="15" direction-links="true" boundary-links="true">
+                                        <dir-pagination-controls max-size="12" direction-links="true" boundary-links="true">
                                         </dir-pagination-controls> @*phan trang*@
 
                                     </div>
