@@ -1,0 +1,250 @@
+﻿
+@{
+    
+    Layout = null;
+}
+
+<div class="page-content">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="#">{{tieude}}</a>
+            </li>
+            <li>
+                <a href="#">Tables</a>
+            </li>
+            <li class="active">Data Tables</li>
+        </ul>
+    </div>
+    <!-- /Page Breadcrumb -->
+    <!-- Page Body -->
+    <div class="page-body" style="margin-top: 0;">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="widget">
+                    <div class="widget-body">
+                        <div class="flip-scroll">
+                            <div id="simpledatatable_wrapper">
+                                <div class="row">
+                                    <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;">
+                                        <div class="col-md-9 col-xs-12">
+                                            <label style="font-size: 18px;margin: 0;">
+                                                Quản lý phòng ban
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3 col-xs-12">
+                                        <label>Cơ quan lưu trữ</label>
+                                        <div id="demo">
+                                            <ul style="list-style: none; padding: 0; margin-left: 10px;">
+                                                <li style="margin-bottom: 8px;">
+                                                    <a href="" style="font-size: 14px;">
+                                                        <i class="fa fa-file"></i>
+                                                        Trung tâm lưu trữ quốc gia II
+                                                    </a>
+                                                </li>
+                                                <li style="margin-bottom: 8px;">
+                                                    <a href="" style="font-size: 14px;">
+                                                        <i class="fa fa-file"></i>
+                                                        Sở Thông tin và truyền thông
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-xs-12">
+                                        <div class="">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-file"></span>Thêm</button>
+
+                                            <!-- Modal them -->
+                                            <div class="modal fade" id="myModal" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <form action="">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title">Thông tin phòng/đơn vị</h4>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <div class="collapse in">
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Cơ quan quản lý</label>
+                                                                        <select name="" id="" class="form-control">
+                                                                            <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                                            <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Mã phòng/đơn vị</label>
+                                                                        <input type="text" class="form-control" id="definput" placeholder="Mã phòng/đơn vị">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Tên phòng/đơn vị</label>
+                                                                        <input type="text" class="form-control" id="definput" placeholder="Tên phòng/đơn vị">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-save"></i>Ghi nhận
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-save"></i>Ghi nhận và thêm mới
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                                                    <i class="glyphicon glyphicon-log-in"></i>Thoát
+                                                                </button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div><!-- end Modal them -->
+
+                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal2"><i class="fa fa-pencil-square-o"></i>Sửa</button>
+
+                                            <!-- Modal sua -->
+                                            <div class="modal fade" id="myModal2" role="dialog">
+                                                <div class="modal-dialog">
+
+                                                    <!-- Modal content-->
+                                                    <div class="modal-content">
+                                                        <form action="">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title">Thông tin phòng/đơn vị</h4>
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <div class="collapse in">
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Cơ quan quản lý</label>
+                                                                        <select name="" id="" class="form-control">
+                                                                            <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                                            <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Mã phòng/đơn vị</label>
+                                                                        <input type="text" class="form-control" id="definput" placeholder="Mã phòng/đơn vị">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="definpu">Tên phòng/đơn vị</label>
+                                                                        <input type="text" class="form-control" id="definput" placeholder="Tên phòng/đơn vị">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-save"></i>Ghi nhận
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-primary">
+                                                                    <i class="fa fa-save"></i>Ghi nhận và thêm mới
+                                                                </button>
+
+                                                                <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                                                    <i class="glyphicon glyphicon-log-in"></i>Thoát
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end Modal sua -->
+                                            <button class="btn btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Xóa</button>
+                                        </div>
+                                        <div class="" style="height: 410px; overflow: auto; margin-top: 5px;">
+                                            <table class="table table-hover table-bordered table-striped table-condensed flip-content">
+                                                <thead class="flip-content bordered-palegreen">
+                                                    <tr>
+                                                        <th>Mã phòng/đơn vị</th>
+                                                        <th>Tên phòng/đơn vị</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>TP</td>
+                                                        <td>Trưởng phòng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>BGD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TP</td>
+                                                        <td>Trưởng phòng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>BGD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TP</td>
+                                                        <td>Trưởng phòng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>BGD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TP</td>
+                                                        <td>Trưởng phòng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>BGD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TP</td>
+                                                        <td>Trưởng phòng</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GD</td>
+                                                        <td>Giám đốc</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Body -->
+</div>
+

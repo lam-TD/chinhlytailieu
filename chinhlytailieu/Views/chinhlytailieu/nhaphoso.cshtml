@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "nhaphoso";
+    Layout = null;
+}
+
+ <!-- Page Content -->
+<div class="page-content">
+    <!-- Page Breadcrumb -->
+    <div class="page-breadcrumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="#">{{tieude}}</a>
+            </li>
+            <li>
+                <a href="#">Tables</a>
+            </li>
+            <li class="active">Data Tables</li>
+        </ul>
+    </div>
+    <!-- /Page Breadcrumb -->
+    <!-- Page Body -->
+    <div class="page-body" style="margin-top: 0;">
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="widget">
+                    <div class="widget-body">
+                        <div class="flip-scroll">
+                            <div id="simpledatatable_wrapper">
+                                <div class="flip-scroll">
+                                    <div id="simpledatatable_wrapper">
+                                        <div class="row">
+                                            <div class="col-md-12" style="border-bottom: 1px solid #ddd; margin-bottom: 10px;">
+                                                <label style="font-size: 16px;">Danh sách hồ sơ</label>
+                                                <a href="" class="pull-right">
+                                                    <i class="fa fa-question-circle"></i> Hướng dẫn
+                                                </a>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <div class="col-sm-2">
+                                                        <label for="" class="control-label pull-right" style="margin-top: 8px;">Phông tài liệu</label>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <select name="" id="" class="col-xs-12">
+                                                            <option value=""></option>
+                                                            <option value="">Phòng chỉnh lý</option>
+                                                            <option value="">Phòng chỉnh lý</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-sm-1" style="">
+                                                        <label for="" class="control-label pull-right" style="margin-top: 8px;">Tình trạng</label>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <select name="" id="" class="col-xs-12">
+                                                            <option value=""></option>
+                                                            <option value="">Phòng chỉnh lý</option>
+                                                            <option value="">Phòng chỉnh lý</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <div class="" style="margin-bottom: 10px;">
+                                                    <a href="#!nhaphoso/them" class="btn btn-primary">
+                                                        <i class="fa fa-file"></i>Thêm mới
+                                                    </a>
+
+                                                    <a href="chinhlytailieu/bmnhaphoso/add.html" class="btn btn-primary">
+                                                        <i class="fa fa-pencil-square-o"></i>Sửa
+                                                    </a>
+
+                                                    <button class="btn btn-danger">
+                                                        <i class="fa fa-times"></i>
+                                                        Xóa
+                                                    </button>
+
+                                                    <button class="btn btn-info">
+                                                        <i class="fa fa-inbox"></i>
+                                                        Xếp vào hộp
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#timkiem">
+                                                        <i class="fa fa-search-plus"></i>Tìm kiếm
+                                                    </button>
+                                                    <!-- Modal sua -->
+                                                    <div class="modal fade" id="timkiem" role="dialog">
+                                                        <div class="modal-dialog">
+                                                            <!-- Modal content-->
+                                                            <div class="modal-content">
+                                                                <form action="">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        <h4 class="modal-title">Tìm kiếm nhanh</h4>
+                                                                    </div>
+                                                                    <div class="modal-body" style="min-height: 120px;">
+                                                                        <div class="collapse in">
+                                                                            <div class="form-group col-md-12">
+                                                                                <div class="col-sm-2">
+                                                                                    <label for="" class="control-label pull-right">Hồ sơ số</label>
+                                                                                </div>
+                                                                                <div class="col-sm-10">
+                                                                                    <input type="text" class="form-control" placeholder="Hồ sơ số">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-12">
+                                                                                <div class="col-sm-2">
+                                                                                    <label for="" class="control-label pull-right">Tiêu đề</label>
+                                                                                </div>
+                                                                                <div class="col-sm-10">
+                                                                                    <textarea class="col-md-12 col-xs-12" placeholder="Tiêu đề"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                                            <i class="fa fa-search"></i>Tìm kiếm
+                                                                        </button>
+
+                                                                        <button type="button" class="btn btn-danger">
+                                                                            <i class="fa fa-times"></i>Hủy tìm kiếm
+                                                                        </button>
+
+                                                                        <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                                                            <i class="glyphicon glyphicon-log-in"></i>Thoát
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div><!-- end Modal sua -->
+
+                                                    <button class="btn btn-info">
+                                                        <i class="fa fa-list"></i>
+                                                        Thêm văn bản
+                                                    </button>
+
+                                                    <button class="btn btn-info pull-right">
+                                                        <i class="fa fa-send"></i>
+                                                        Gửi kiểm tra
+                                                    </button>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 col-xs-12">
+
+                                                <div style="height: 400px; overflow: auto;">
+                                                    <table class="table table-hover table-bordered table-striped table-condensed flip-content">
+                                                        <thead class="flip-content bordered-palegreen">
+                                                            <tr>
+                                                                <th>Hộp số</th>
+                                                                <th style="width: 15%;">Hồ sơ số</th>
+                                                                <th style="width: 40%;">Tiêu đề hồ sơ</th>
+                                                                <th>Thời gian BĐ-KT</th>
+                                                                <th>SL tờ</th>
+                                                                <th>THBQ</th>
+                                                                <th>
+                                                                    <div class="checkbox" style="margin: 0;">
+                                                                        <label>
+                                                                            <input type="checkbox">
+                                                                            <span class="text"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>2017</td>
+                                                                <td>Chỉnh lý TL 2018</td>
+                                                                <td>UBND Tinh Can Tho-1992-2003</td>
+                                                                <td>1</td>
+                                                                <td>Đã duyệt</td>
+                                                                <td>Đã duyệt</td>
+                                                                <td>
+                                                                    <div class="checkbox" style="margin: 0;">
+                                                                        <label>
+                                                                            <input type="checkbox">
+                                                                            <span class="text"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <nav aria-label="Page navigation">
+                                                    <ul class="pagination">
+                                                        <li>
+                                                            <a href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="active"><a href="#">1</a></li>
+                                                        <li><a href="#">2</a></li>
+                                                        <li><a href="#">3</a></li>
+                                                        <li><a href="#">4</a></li>
+                                                        <li><a href="#">5</a></li>
+                                                        <li>
+                                                            <a href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Body -->
+</div>
+<!-- /Page Content -->
+
