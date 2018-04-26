@@ -7,13 +7,15 @@
 
     $scope.hiddenText = true;
     
+
     // load co quan
     $http({
         method: 'GET',
         url: '/hethong/users_coquan_load'
     }).then(function success(respone) {
         $scope.coquanList = respone.data;
-
+        $scope.selectCoQuan = $scope.coquanList[0];
+        $scope.hasChanged();
     }, function error(response) {
         alert("Không tải được danh sách cơ quan");
     });
@@ -50,6 +52,42 @@
             $scope.btnThem = false; // hien thi btnThem
         });
     }
+
+
+    $scope.kichhoat = function () {
+        //check tai khoan co duoc kich hoat hay chua
+        var title = null;
+        var data = null;
+        var notication = null;
+        if ($scope.nd.khoa == true && $scope.nd.username != null) {
+            title = 'Bạn có chắc chắn muốn kích hoạt tài khoản: ' + $scope.nd.username;
+            data = { username: $scope.nd.username, khoa: 0 };
+            notication = 'Kích hoạt tài khoản thành công tài khoản: ' + $scope.nd.username;
+        }
+        else {
+            title = 'Bạn có chắc chắn muốn khóa tài khoản: ' + $scope.nd.username;
+            data = { username: $scope.nd.username, khoa: 1 };
+            notication = 'Đã khóa tài khoản: ' + $scope.nd.username;
+        }
+
+        var confim = confirm(title);
+        if (confim) {
+            $http({
+                method: 'POST',
+                url: '/hethong/ht_quanlynguoidung_Khoa',
+                data: data
+            }).then(function (response) {
+                if (response.data == 1) {
+                    alert(notication);
+                } else { alert('Lỗi không thục hiện được'); }
+
+            }, function () {
+                alert('Lỗi không sử lý được');
+            })
+        }
+
+    };
+
 
     //them sua
     $scope.modal = function (state) {
@@ -181,7 +219,8 @@
             email: u.EMAIL,
             hanche: u.HANCHE,
             password: '     ',
-            xacnhanmk: '     '
+            xacnhanmk: '     ',
+            khoa: u.KHOA
         }
         $scope.nd = nd;
         var dmk = {

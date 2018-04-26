@@ -165,7 +165,7 @@
 
 
 
-                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#" ng-disabled="btnSua">
+                                            <button type="button" class="btn btn-info" ng-disabled="btnSua" ng-click="kichhoat()">
                                                 <i class="fa fa-lock"></i>Khóa
                                             </button>
 
@@ -244,12 +244,8 @@
                                                         <td>{{u.hoten}}</td>
                                                         <td>{{u.USERNAME}}</td>
                                                         <td>{{u.TENCHUCVU}}</td>
-                                                        @if (true)
-                                                        {
-                                                            <td>
-                                                                <i class="glyphicon glyphicon-minus"></i>
-                                                            </td>
-                                                        }
+                                                        <td ng-if="u.KHOA == false"><i class="fa fa-check"></i></td>
+                                                        <td ng-if="u.KHOA == true"><i class="glyphicon glyphicon-minus"></i></td>
                                                     </tr>
                                                     
                                                 </tbody>

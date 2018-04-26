@@ -259,5 +259,13 @@ namespace chinhlytailieu.Controllers.hethong
             else { return Json("1", JsonRequestBehavior.AllowGet); }
         }
 
+        public JsonResult ht_quanlynguoidung_Khoa(string username, int khoa)
+        {
+            string[] namepara = { "@username", "@khoa" };
+            object[] valuepara = { username, khoa };
+            if (dataAsset.data.inputdata("ht_quanlynguoidung_Khoa", namepara, valuepara)) { return Json("1", JsonRequestBehavior.AllowGet); }
+            else { return Json("1", JsonRequestBehavior.AllowGet); }
+        }
+
     }
 }
