@@ -45,6 +45,8 @@ Purchase: http://wrapbootstrap.com
     <script src="~/Scripts/dirPagination.js"></script>
     <script src="~/Scripts/appchinhly.js"></script>
     @*<script src="~/Scripts/chinhlytop.js"></script>*@
+   
+
 </head>
 <!-- /Head -->
 <!-- Body -->
@@ -76,9 +78,7 @@ Purchase: http://wrapbootstrap.com
                                     <!-- <span class="badge">4</span> -->
                                 </a>
                                 <!--Tasks Dropdown-->
-                                <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow" id="menu-topchinhly">
-                                    
-                                </ul>
+                                <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow" id="menu-topchinhly"></ul>
                                 <!--/Tasks Dropdown-->
                             </li>
 
@@ -183,7 +183,7 @@ Purchase: http://wrapbootstrap.com
                     $('#avartaChinhly').attr('src', link);
                     $('#usernamechinhly').html(data[0].Username)
                 }, error: function (err) {
-                    
+
                 }
             })
         }
@@ -204,3 +204,8 @@ Purchase: http://wrapbootstrap.com
     </script>
 
     @RenderBody()
+
+    @RenderSection("script_bottom", false)
+</body>
+<!--  /Body -->
+</html>

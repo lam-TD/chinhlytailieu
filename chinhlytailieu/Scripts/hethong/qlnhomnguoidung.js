@@ -2,6 +2,10 @@
     $scope.nhomchucnang = "Quản lý người dùng";
     $scope.chucnang = "Quản lý chức vụ";
 
+    $scope.btnSua = true; //disable btnsua
+    $scope.disabletxtSua = false; //disable txtmanhom
+    $scope.flag = false; // luu noi dung text khi khong thu hien duoc chuc nang
+
     // load danh sach nhom nguoi dung
     $http.get('/hethong/ht_qlnhomnguoidung_Load').then(function (response) {
         $scope.nhomnguoidungLoad = response.data;
@@ -9,10 +13,25 @@
         alert('Lỗi không tải được danh sách nhóm');
     })
 
+    $scope.DSnhomnguoidung = function () {
+        $http.get('/hethong/ht_qlnhomnguoidung_Load').then(function (response) {
+            $scope.nhomnguoidungLoad = response.data;
+        }, function (response) {
+            alert('Lỗi không tải được danh sách nhóm');
+        })
+    }
+
+
+
+
+
     // load danh sach tai khoan trong nhom khi click chon nhom nguoi dung
     $scope.clickNhom = function (u) {
         var manhom = u.MANHOM;
-        $scope.loadNhomnguoidung(manhom);
+        $scope.loadNhomnguoidung(manhom); //load danh sach nhom nguoi dung theo ma nhom
+        var nhom_info = { manhom: u.MANHOM, tennhom: u.TENNHOM }
+        $scope.nhom = nhom_info;
+        $scope.btnSua = false;
     }
 
     $scope.loadNhomnguoidung = function (manhom) {
@@ -25,11 +44,143 @@
         })
     }
 
-    //$http({
-    //    method: 'GET',
-    //    url: '/hethong/ht_qlnhomnguoidung_Loads'
-    //}).then(function (response) {
-    //    console.log(response);
-    //    $scope.nhomnguoidungLoad = response.data;
-    //})
+    // modal
+    $scope.modal = function (state) {
+        $scope.state = state;
+        if (state == 'add') {
+            if (!$scope.flag) { $scope.nhom = null; $scope.btnSua = true; }
+            $scope.disabletxtSua = false;
+        }
+        else
+        {
+            $scope.disabletxtSua = true;
+        }
+    }
+
+    // check ma nhom co ton tai hay khong
+    $scope.check_manhom = 1;
+    $scope.checkMaNhom = function(){
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_qlnhomnguoidung_CheckMaNhom',
+            data: { manhom: $scope.nhom.manhom}
+        }).then(function(response){
+            if (response.data == 1) { $scope.check_manhom = 1; }
+            else { $scope.check_manhom = -1; }
+        }, function (resopnse) {
+            alert("Lỗi không kiểm tra được mã nhóm");
+        })
+    }
+
+    // them - capnhat
+    $scope.save = function (state) {
+        var nhom = $scope.nhom;
+        if (state == 'add')
+        {
+            $http({
+                method: 'POST',
+                url: '/hethong/ht_qlnhomnguoidung_CheckMaNhom',
+                data: { manhom: $scope.nhom.manhom }
+            }).then(function (response) {
+                if (response.data == -1)
+                {
+                    var ma_nhom = $scope.nhom.manhom.trim();
+                    var vitri = ma_nhom.search(" ");
+                    if (vitri == -1)
+                    {
+                        $http({
+                            method: 'POST',
+                            url: '/hethong/ht_qlnhomnguoidung_ThemSua',
+                            data: { type: 1, n: nhom }
+                        }).then(function (response) {
+                            if (response.data == 1) {
+                                alert("Thêm thành công");
+                                $scope.flag = false;
+                                $scope.DSnhomnguoidung();
+                            }
+                            else { alert("Lỗi không thêm được"); $scope.flag = false; }
+                        }, function (resopnse) {
+                            alert("Lỗi không thực hiện được chức năng");
+                            $scope.flag = false;
+                        })
+                    }
+                    else
+                    {
+                        alert('Mã nhóm không được có khoảng trắng');
+                        $scope.flag = true;
+                    }
+                }
+                else { alert('Mã nhóm đã tồn tại'); }
+            }, function (resopnse) {
+                alert("Lỗi không kiểm tra được mã nhóm");
+            })      
+        }
+        else if (state == 'edit')
+        {
+            var conf = confirm('Bạn có chắc chắn muốn cập nhật nhóm: ' + nhom.manhom);
+            if (conf) {
+                $http({
+                    method: 'POST',
+                    url: '/hethong/ht_qlnhomnguoidung_ThemSua',
+                    data: { type: 2, n: $scope.nhom }
+                }).then(function (response) {
+                    if (response.data == 1) {
+                        alert("Cập nhật thành công");
+                        $scope.DSnhomnguoidung();
+                    }
+                    else {
+                        alert("Lỗi không cập nhật được");
+                    }
+                }, function (resopnse) {
+                    alert("Lỗi không thực hiện được chức năng");
+                })
+            }
+        }
+    }
+    
+    //====== DANH SACH TAI KHOAN TRONG NHOM ======
+    // load co quan
+    $http({
+        method: 'GET',
+        url: '/hethong/users_coquan_load'
+    }).then(function success(respone) {
+        $scope.coquanList = respone.data;
+        $scope.selectCoQuan = $scope.coquanList[0];
+        $scope.hasChanged();
+    }, function error(response) {
+        alert("Không tải được danh sách cơ quan");
+    });
+
+    // hien thi phong khi chon co quan
+    $scope.hasChanged = function () {
+        var idcoquanlam = $scope.selectCoQuan.MACOQUAN;
+        $http({
+            method: 'POST',
+            url: '/hethong/coquanLam',
+            data: { id: idcoquanlam }
+        }).then(function success(respone) {
+            $scope.coquanLam = respone.data;
+            $http({
+                method: 'GET',
+                url: '/hethong/DanhSachChucVu'
+            }).then(function (response) {
+                $scope.chucvu2 = response.data;
+            }, function (reponse) {
+                console.log("Lỗi");
+            })
+        });
+    }
+
+
+    //chon phong hien thi danh sach nguoi dung
+    $scope.checkPhong = function (u) {
+        $http({
+            method: 'POST',
+            url: '/hethong/LoadNguoiDungTheoBoPhan',
+            data: { id: u.MAPHONG }
+        }).then(function success(respone) {
+            $scope.userList = respone.data; //load table nguoi dung
+            $scope.btnThem = false; // hien thi btnThem
+        });
+    }
 })

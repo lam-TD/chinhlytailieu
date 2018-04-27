@@ -36,7 +36,7 @@
             }).then(function (response) {
                 $scope.chucvu2 = response.data;
             }, function (reponse) {
-                console.log("Loi cmnr");
+                console.log("Lỗi");
             })
         });
     }

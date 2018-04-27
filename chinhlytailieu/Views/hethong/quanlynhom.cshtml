@@ -36,7 +36,7 @@
                                     <div class="col-md-4 col-xs-12" style="border-right: 1px solid #eee;">
                                         <label>Nhóm người dùng</label>
                                         <div class="" style="margin-bottom: 5px;">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem" ng-click="modal('add')">
                                                 <i class="fa fa-file-text-o"></i>Thêm
                                             </button>
 
@@ -56,7 +56,7 @@
                                                                     <div class="form-group col-md-12">
                                                                         <label class="col-sm-3">Mã nhóm</label>
                                                                         <div class="col-sm-9">
-                                                                            <input type="text" class="form-control" name="txtmanhom" placeholder="Mã nhóm" ng-model="nhom.manhom" ng-required="true">
+                                                                            <input type="text" class="form-control" name="txtmanhom" placeholder="Mã nhóm" ng-model="nhom.manhom" ng-required="true" ng-disabled="disabletxtSua">
                                                                             <span style="color:red;" ng-show="formNhom.txtmanhom.$touched && formNhom.txtmanhom.$invalid">Mã nhóm không được để trống</span>
                                                                         </div>
                                                                     </div>
@@ -70,10 +70,10 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem" ng-click="save(state)">
                                                                     <i class="fa fa-save"></i>Ghi nhận
                                                                 </button>
-                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem">
                                                                     <i class="fa fa-save"></i>Ghi nhận và thêm mới
                                                                 </button>
                                                                 <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -85,7 +85,7 @@
                                                 </div>
                                             </div><!-- end Modal them -->
 
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalthem" ng-disabled="btnSua" ng-click="modal('edit')">
                                                 <i class="fa fa-pencil-square-o"></i>Sửa
                                             </button>
 
@@ -98,12 +98,12 @@
                                                 <table class="table table-hover table-bordered table-striped table-condensed flip-content">
                                                     <thead class="flip-content bordered-palegreen">
                                                         <tr>
-                                                            <th style="width: 70px;">Mã</th>
+                                                            <th style="width: 40%;">Mã</th>
                                                             <th>Tên nhóm</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr style="cursor: pointer;" dir-paginate="n in nhomnguoidungLoad |itemsPerPage:12" ng-click="clickNhom(n)">
+                                                        <tr class="click_nhom" style="cursor: pointer;" dir-paginate="n in nhomnguoidungLoad |itemsPerPage:12" >
                                                             <td>{{n.MANHOM}}</td>
                                                             <td>{{n.TENNHOM}}</td>
                                                         </tr>
@@ -139,29 +139,23 @@
                                                                     <div class="collapse in">
                                                                         <div class="row">
                                                                             <div class="col-md-3" style="border-right: 1px solid #eee;">
-                                                                                <h4>Cơ quan/phòng ban</h4>
-                                                                                <select name="" class="col-xs-12">
-                                                                                    <option value="">Trung tâm lưu trữ</option>
-                                                                                    <option value="">Trung tâm lưu trữ</option>
-                                                                                </select>
-                                                                                <div style="margin-top: 10px; overflow: auto; height: 150px; display: inline-block;">
-                                                                                    <div class="checkbox">
-                                                                                        <label>
-                                                                                            <input type="checkbox">
-                                                                                            <span class="text">Ban giám đốc</span>
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    <div class="checkbox">
-                                                                                        <label>
-                                                                                            <input type="checkbox">
-                                                                                            <span class="text">Phòng bản quản</span>
-                                                                                        </label>
+                                                                                <h5 style="margin-top: 0;">Cơ quan/phòng ban</h5>
+                                                                                <select class="col-md-12" ng-model="selectCoQuan" ng-options="item.TENCOQUAN for item in coquanList" ng-change="hasChanged()"></select>
+                                                                                <div style="overflow: auto; height: 150px;width:100%; display: inline-block;">
+                                                                                    <div class="" style="margin-top: 5px; display:inline-block;width:100%;">
+                                                                                        <table class="table table-hover table-bordered table-condensed">
+                                                                                            <tbody>
+                                                                                                <tr ng-repeat="c in coquanLam" style="cursor:pointer" ng-click="checkPhong(c)">
+                                                                                                    <td class="checkPhongP">{{c.TENPHONG}}</td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="col-md-9">
-                                                                                <div class="" style="overflow: auto; height: 220px;">
+                                                                                <div class="" style="overflow: auto; height: 320px;">
                                                                                     <table class="table table-hover table-bordered table-striped table-condensed flip-content">
                                                                                         <thead class="flip-content bordered-palegreen">
                                                                                             <tr>
@@ -176,11 +170,11 @@
                                                                                                 <th>Họ tên</th>
                                                                                                 <th>Tên đăng nhập</th>
                                                                                                 <th>Chức danh</th>
-                                                                                                <th>Kích hoạt</th>
+                                                                                                <th style="text-align: center">Kích hoạt</th>
                                                                                             </tr>
                                                                                         </thead>
                                                                                         <tbody>
-                                                                                            <tr>
+                                                                                            <tr dir-paginate="u in userList |itemsPerPage:12" ng-click="clickDanhSach(u)" style="cursor: pointer;">
                                                                                                 <td>
                                                                                                     <div class="checkbox" style="margin: 0;">
                                                                                                         <label>
@@ -189,48 +183,17 @@
                                                                                                         </label>
                                                                                                     </div>
                                                                                                 </td>
-                                                                                                <td>Trưởng phòng Đọc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>
-                                                                                                    <i class="glyphicon glyphicon-remove"></i>
-                                                                                                </td>
+                                                                                                <td>{{u.hoten}}</td>
+                                                                                                <td>{{u.USERNAME}}</td>
+                                                                                                <td>{{u.TENCHUCVU}}</td>
+                                                                                                <td ng-if="u.KHOA == false" style="text-align: center"><i class="fa fa-check"></i></td>
+                                                                                                <td ng-if="u.KHOA == true" style="text-align: center"><i class="glyphicon glyphicon-minus"></i></td>
                                                                                             </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <div class="checkbox" style="margin: 0;">
-                                                                                                        <label>
-                                                                                                            <input type="checkbox">
-                                                                                                            <span class="text"></span>
-                                                                                                        </label>
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>Trưởng phòng Đọc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>
-                                                                                                    <i class="glyphicon glyphicon-remove"></i>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td>
-                                                                                                    <div class="checkbox" style="margin: 0;">
-                                                                                                        <label>
-                                                                                                            <input type="checkbox">
-                                                                                                            <span class="text"></span>
-                                                                                                        </label>
-                                                                                                    </div>
-                                                                                                </td>
-                                                                                                <td>Trưởng phòng Đọc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>tpdoc</td>
-                                                                                                <td>
-                                                                                                    <i class="glyphicon glyphicon-remove"></i>
-                                                                                                </td>
-                                                                                            </tr>
+                                                                                            
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </div>
+                                                                                <dir-pagination-controls max-size="12" direction-links="true" boundary-links="true"></dir-pagination-controls> @*phan trang*@
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -288,3 +251,4 @@
     </div>
     <!-- /Page Body -->
 </div>
+

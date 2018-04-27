@@ -281,7 +281,7 @@ namespace chinhlytailieu.Controllers.hethong
             return dataAsset.data.outputdata("ht_qlnhomnguoidung_LoadDSTaikhoan", namepara, valuepara);
         }
 
-        public JsonResult ht_qlnhomnguoidung_Them(int type, nhom n)
+        public JsonResult ht_qlnhomnguoidung_ThemSua(int type, nhom n)
         {
             string[] namepara = { "@MANHOM", "@TENNHOM" };
             object[] valuepara = { n.Manhom, n.Tennhom };
@@ -293,12 +293,21 @@ namespace chinhlytailieu.Controllers.hethong
                     else { result = "-1"; }
                     break;
                 case 2:
-                    if (dataAsset.data.inputdata("ht_quanlynguoidung_Sua", namepara, valuepara)) { result = "1"; }
+                    if (dataAsset.data.inputdata("ht_qlnhomnguoidung_Sua", namepara, valuepara)) { result = "1"; }
                     else { result = "-1"; }
                     break;
-
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //check ma nhom ton tai
+        public JsonResult ht_qlnhomnguoidung_CheckMaNhom(string manhom)
+        {
+            string[] namepara = { "@manhom" };
+            object[] valuepara = { manhom };
+            DataTable dt = dataAsset.data.outputdataTable("ht_qlnhomnguoidung_CheckMaNhom", namepara, valuepara);
+            if (dt.Rows.Count > 0) { return Json("1", JsonRequestBehavior.AllowGet); }
+            else { return Json("-1", JsonRequestBehavior.AllowGet); }
         }
     }
 }
