@@ -762,6 +762,7 @@
     <Content Include="Scripts\hethong\qlchucvuController.js" />
     <Content Include="Scripts\hethong\qlnguoidungController.js" />
     <Content Include="Scripts\hethong\qlnhomnguoidung.js" />
+    <Content Include="Scripts\hethong\qlphongban.js" />
     <Content Include="Scripts\home\home.js" />
     <Content Include="Scripts\home\layouttop\layouttop.js" />
     <Content Include="Scripts\khaithactailieu\appkhaithactailieu.js" />

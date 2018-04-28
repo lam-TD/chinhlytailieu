@@ -226,6 +226,8 @@
             data: { username: DanhSachTKDuocChon, manhom: manhom }
         }).then(function (response) {
             console.log(response.data);
+            alert('Đã thêm tài khoản vào nhóm');
+            checknguoidngdathuocnhom();
         })
        
     }
@@ -255,6 +257,44 @@
             }
         })
         
+    }
+
+    // click chon tai khoan trong danh sach tai khoan trong nhom
+    $scope.clickDSTKtrongnhom = function (t) {
+        var tk = document.getElementsByClassName('itemTK');
+        
+        for (var i = 0; i < tk.length; i++) {
+            tk[i].onclick = function () {
+                for (var j = 0; j < tk.length; j++) {
+                    tk[j].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+            }
+        }
+        $scope.usernameKhichonTK = t.USERNAME;
+        $scope.disablebtnloaibotaikhoan = false;
+    }
+
+    //loai bo tai khoan
+    $scope.loaibo = function () {
+        var conf = confirm('Bạn có chắc chắn muốn loại bỏ tài khoản này ra khỏi nhóm?');
+        if (conf) {
+            var username = $scope.usernameKhichonTK;
+           
+            $http({
+                method: 'POST',
+                url: '/hethong/ht_qlnhomnguoidung_Loaibo',
+                data: {username: username}
+            }).then(function (response) {
+                if (response.data == 1) {
+                    alert('Đã loại bỏ tài khoản: ' + username);
+                }
+                else {
+                    alert('Lỗi không thực hiện được');
+                }
+                $scope.disablebtnloaibotaikhoan = true;
+            })
+        }
     }
 
     // active

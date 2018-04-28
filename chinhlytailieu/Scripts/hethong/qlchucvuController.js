@@ -65,6 +65,16 @@
 
     // click chon chuc vu
     $scope.clickChucVu = function (c) {
+        var t = document.getElementsByClassName('clicktaikhoan');
+        for (var i = 0; i < t.length; i++) {
+            t[i].onclick = function () {
+                for (var i = 0; i < t.length; i++) {
+                    t[i].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+
+            }
+        }
         $scope.showBtnSua = false;
         console.log(c);
         $scope.cv = {

@@ -44,6 +44,16 @@
 
     //chon phong hien thi danh sach nguoi dung
     $scope.checkPhong = function (u) {
+        var t = document.getElementsByClassName('clickPhong');
+        for (var i = 0; i < t.length; i++) {
+            t[i].onclick = function () {
+                for (var i = 0; i < t.length; i++) {
+                    t[i].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+
+            }
+        }
         $http({
             method: 'POST',
             url: '/hethong/LoadNguoiDungTheoBoPhan',
@@ -213,6 +223,16 @@
     }
    
     $scope.clickDanhSach = function (u) {
+        var t = document.getElementsByClassName('clickdanhsachTK');
+        for (var i = 0; i < t.length; i++) {
+            t[i].onclick = function () {
+                for (var i = 0; i < t.length; i++) {
+                    t[i].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+
+            }
+        }
         $scope.btnSua = false;
         var nd = {
             chucvu: u.CHUCVU,

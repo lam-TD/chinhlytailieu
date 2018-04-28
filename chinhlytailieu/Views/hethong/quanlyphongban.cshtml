@@ -4,18 +4,17 @@
     Layout = null;
 }
 
-<div class="page-content">
+<div class="page-content" ng-controller="qlphongController">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="#">{{tieude}}</a>
+                <a href="#">{{nhomchucnang}}</a>
             </li>
             <li>
-                <a href="#">Tables</a>
+                <a href="#">{{chucnang}}</a>
             </li>
-            <li class="active">Data Tables</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -37,21 +36,12 @@
                                     </div>
 
                                     <div class="col-md-3 col-xs-12">
-                                        <label>Cơ quan lưu trữ</label>
-                                        <div id="demo">
-                                            <ul style="list-style: none; padding: 0; margin-left: 10px;">
-                                                <li style="margin-bottom: 8px;">
-                                                    <a href="" style="font-size: 14px;">
-                                                        <i class="fa fa-file"></i>
-                                                        Trung tâm lưu trữ quốc gia II
-                                                    </a>
-                                                </li>
-                                                <li style="margin-bottom: 8px;">
-                                                    <a href="" style="font-size: 14px;">
-                                                        <i class="fa fa-file"></i>
-                                                        Sở Thông tin và truyền thông
-                                                    </a>
-                                                </li>
+                                        <div id="demo" data-collapse="accordion persist">
+                                            <a><h5>Fruits</h5></a>
+                                            <ul>
+                                                <li>Apple</li>
+                                                <li>Pear</li>
+                                                <li>Orange</li>
                                             </ul>
                                         </div>
                                     </div>

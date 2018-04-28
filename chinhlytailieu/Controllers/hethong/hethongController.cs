@@ -155,6 +155,8 @@ namespace chinhlytailieu.Controllers.hethong
 
 //============ QUAN LY NGUOI DUNG ===========
 
+        //====== QUAN LY PHONG BAN ======
+        
         //====== QUAN LY CHUC VU ======
         public string DanhSachChucVu()
         {
@@ -323,7 +325,7 @@ namespace chinhlytailieu.Controllers.hethong
                 {
                     string[] namepara2 = { "@manhom", "@username" };
                     object[] valuepara2 = { manhom, username[i] };
-                    if (dataAsset.data.inputdata("ht_qlnhomnguoidung_themnguoidungvaonhom", namepara, valuepara))
+                    if (dataAsset.data.inputdata("ht_qlnhomnguoidung_themnguoidungvaonhom", namepara2, valuepara2))
                         result = "1"; // them thanh cong
                 }
             }
@@ -336,5 +338,16 @@ namespace chinhlytailieu.Controllers.hethong
             object[] valuepara = { maphong, manhom };
             return dataAsset.data.outputdata("ht_qlnhomnguoidung_loadnguoidung_bophan_thuocnhomnguoidung", namepara, valuepara);
         }
+
+    
+        public JsonResult ht_qlnhomnguoidung_Loaibo(string username)
+        {
+            string[] namepara = { "@username" };
+            object[] valuepara = { username };
+            if (dataAsset.data.inputdata("ht_qlnhomnguoidung_Loaibo", namepara, valuepara)) { return Json("1", JsonRequestBehavior.AllowGet); }
+            else { return Json("-1", JsonRequestBehavior.AllowGet); }
+        }
+
+
     }
 }

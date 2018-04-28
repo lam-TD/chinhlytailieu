@@ -3,11 +3,7 @@
     Layout = null;
 }
 
-<style>
-    .active_nhom{
-        background-color: #0000ff38 !important;
-    }
-</style>
+
 
 <div class="page-content" ng-controller="qlnhomnguoidungController">
     <!-- Page Breadcrumb -->
@@ -218,7 +214,7 @@
                                                     </div>
                                                 </div><!-- end Modal them -->
 
-                                                <button class="btn btn-danger" ng-disabled="disablebtnloaibotaikhoan">
+                                                <button class="btn btn-danger" ng-disabled="disablebtnloaibotaikhoan" ng-click="loaibo()">
                                                     <i class="fa fa-times"></i> Loại bỏ
                                                 </button>
                                             </div>
@@ -234,7 +230,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr dir-paginate="t in taikhoan |itemsPerPage:12">
+                                                    <tr class="itemTK" dir-paginate="t in taikhoan |itemsPerPage:12" ng-click="clickDSTKtrongnhom(t)" style="cursor:pointer;">
                                                         <td>{{t.HOTEN}}</td>
                                                         <td>{{t.USERNAME}}</td>
                                                         <td>{{t.TENCHUCVU}}</td>

@@ -157,6 +157,7 @@ namespace chinhlytailieu.Controllers
             return Json(m, JsonRequestBehavior.AllowGet);
         }
 
+        // kiem tra nguoi dung co quyen truy cap link chuc nang
         public JsonResult checkUrlUser(string link)
         {
             string result = string.Empty;

@@ -47,7 +47,7 @@
                                         <div class="" style="margin-top: 5px; display:inline-block;width:100%;">
                                             <table class="table table-hover table-bordered table-condensed">
                                                 <tbody>
-                                                    <tr ng-repeat="c in coquanLam" style="cursor:pointer" ng-click="checkPhong(c)">
+                                                    <tr class="clickPhong" ng-repeat="c in coquanLam" style="cursor:pointer" ng-click="checkPhong(c)">
                                                         <td class="checkPhongP">{{c.TENPHONG}}</td>
                                                     </tr>
                                                 </tbody>
@@ -240,7 +240,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr dir-paginate="u in userList |itemsPerPage:12" ng-click="clickDanhSach(u)" style="cursor: pointer;">
+                                                    <tr class="clickdanhsachTK" dir-paginate="u in userList |itemsPerPage:12" ng-click="clickDanhSach(u)" style="cursor: pointer;">
                                                         <td>{{u.hoten}}</td>
                                                         <td>{{u.USERNAME}}</td>
                                                         <td>{{u.TENCHUCVU}}</td>
