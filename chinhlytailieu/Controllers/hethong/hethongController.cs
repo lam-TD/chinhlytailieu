@@ -309,5 +309,32 @@ namespace chinhlytailieu.Controllers.hethong
             if (dt.Rows.Count > 0) { return Json("1", JsonRequestBehavior.AllowGet); }
             else { return Json("-1", JsonRequestBehavior.AllowGet); }
         }
+
+        public JsonResult ht_qlnhomnguoidung_themnguoidungvaonhom(string[] username, string manhom)
+        {
+            // check nguoi dung co thuoc nhom hay chua
+            string result = "1";
+            for (int i = 0; i < username.Length; i++)
+            {
+                string[] namepara = { "@username", "@manhom" };
+                object[] valuepara = { username[i], manhom };
+                DataTable dt = dataAsset.data.outputdataTable("ht_qlnhomnguoidung_Checknguoidungthuocnhom", namepara, valuepara);
+                if (dt.Rows.Count == 0)
+                {
+                    string[] namepara2 = { "@manhom", "@username" };
+                    object[] valuepara2 = { manhom, username[i] };
+                    if (dataAsset.data.inputdata("ht_qlnhomnguoidung_themnguoidungvaonhom", namepara, valuepara))
+                        result = "1"; // them thanh cong
+                }
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public string ht_qlnhomnguoidung_loadnguoidung_bophan_thuocnhomnguoidung(string maphong, string manhom)
+        {
+            string[] namepara = { "@maphong", "@manhom" };
+            object[] valuepara = { maphong, manhom };
+            return dataAsset.data.outputdata("ht_qlnhomnguoidung_loadnguoidung_bophan_thuocnhomnguoidung", namepara, valuepara);
+        }
     }
 }

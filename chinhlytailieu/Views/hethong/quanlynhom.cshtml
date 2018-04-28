@@ -3,6 +3,12 @@
     Layout = null;
 }
 
+<style>
+    .active_nhom{
+        background-color: #0000ff38 !important;
+    }
+</style>
+
 <div class="page-content" ng-controller="qlnhomnguoidungController">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
@@ -103,7 +109,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="click_nhom" style="cursor: pointer;" dir-paginate="n in nhomnguoidungLoad |itemsPerPage:12" >
+                                                        <tr class="click_nhom" style="cursor: pointer;" dir-paginate="n in nhomnguoidungLoad |itemsPerPage:12" ng-click="clickNhom(n)">
                                                             <td>{{n.MANHOM}}</td>
                                                             <td>{{n.TENNHOM}}</td>
                                                         </tr>
@@ -121,7 +127,7 @@
                                         </div>
                                         <div class="">
                                             <div class="" style="padding-bottom: 5px;">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-disabled="disablebtnthemtaikhoan">
                                                     <i class="fa fa-file-text-o"></i>Thêm tài khoản
                                                 </button>
 
@@ -145,7 +151,7 @@
                                                                                     <div class="" style="margin-top: 5px; display:inline-block;width:100%;">
                                                                                         <table class="table table-hover table-bordered table-condensed">
                                                                                             <tbody>
-                                                                                                <tr ng-repeat="c in coquanLam" style="cursor:pointer" ng-click="checkPhong(c)">
+                                                                                                <tr class="click_bophan" ng-repeat="c in coquanLam" style="cursor:pointer" ng-click="checkPhong(c)">
                                                                                                     <td class="checkPhongP">{{c.TENPHONG}}</td>
                                                                                                 </tr>
                                                                                             </tbody>
@@ -178,7 +184,7 @@
                                                                                                 <td>
                                                                                                     <div class="checkbox" style="margin: 0;">
                                                                                                         <label>
-                                                                                                            <input type="checkbox">
+                                                                                                            <input class="check_vaonhom" type="checkbox" value="{{u.USERNAME}}">
                                                                                                             <span class="text"></span>
                                                                                                         </label>
                                                                                                     </div>
@@ -199,7 +205,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="themnguoidungvaonhom()">
                                                                         <i class="fa fa-plus"></i>Thêm vào nhóm
                                                                     </button>
 
@@ -212,7 +218,7 @@
                                                     </div>
                                                 </div><!-- end Modal them -->
 
-                                                <button class="btn btn-danger">
+                                                <button class="btn btn-danger" ng-disabled="disablebtnloaibotaikhoan">
                                                     <i class="fa fa-times"></i> Loại bỏ
                                                 </button>
                                             </div>

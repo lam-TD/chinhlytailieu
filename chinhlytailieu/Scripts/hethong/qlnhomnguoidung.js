@@ -5,6 +5,8 @@
     $scope.btnSua = true; //disable btnsua
     $scope.disabletxtSua = false; //disable txtmanhom
     $scope.flag = false; // luu noi dung text khi khong thu hien duoc chuc nang
+    $scope.disablebtnthemtaikhoan = true;
+    $scope.disablebtnloaibotaikhoan = true;
 
     // load danh sach nhom nguoi dung
     $http.get('/hethong/ht_qlnhomnguoidung_Load').then(function (response) {
@@ -28,10 +30,22 @@
     // load danh sach tai khoan trong nhom khi click chon nhom nguoi dung
     $scope.clickNhom = function (u) {
         var manhom = u.MANHOM;
+        $scope.manhomStatic = u.MANHOM;
         $scope.loadNhomnguoidung(manhom); //load danh sach nhom nguoi dung theo ma nhom
         var nhom_info = { manhom: u.MANHOM, tennhom: u.TENNHOM }
         $scope.nhom = nhom_info;
         $scope.btnSua = false;
+        $scope.disablebtnthemtaikhoan = false; // kich hoat btn them tai khoan vao nhom
+        var t = document.getElementsByClassName('click_nhom');
+        for (var i = 0; i < t.length; i++) {
+            t[i].onclick = function () {
+                for (var i = 0; i < t.length; i++) {
+                    t[i].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+                
+            }
+        }
     }
 
     $scope.loadNhomnguoidung = function (manhom) {
@@ -181,6 +195,79 @@
         }).then(function success(respone) {
             $scope.userList = respone.data; //load table nguoi dung
             $scope.btnThem = false; // hien thi btnThem
+            active_clickbophan(); // to mau cho bo phan duoc chon
+
+            checknguoidngdathuocnhom();
+
         });
+    }
+
+    $scope.loaddanhsachnguoidungdathuocnhom = function () {
+
+    }
+
+    // them nguoi dung vao nhom
+    $scope.themnguoidungvaonhom = function () {
+        var manhom = $scope.nhom.manhom;
+        console.log(manhom);
+        var DanhSachTKDuocChon = [];
+        var DanhSachTaiKhoan = document.getElementsByClassName('check_vaonhom');
+        // lay danh sach nguoi dung da duoc chon
+        for (var i = 0; i < DanhSachTaiKhoan.length; i++) {
+            if (DanhSachTaiKhoan[i].checked) {
+                DanhSachTKDuocChon.push(DanhSachTaiKhoan[i].value);
+            }
+        }
+        
+        //them nguoi dung 
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_qlnhomnguoidung_themnguoidungvaonhom',
+            data: { username: DanhSachTKDuocChon, manhom: manhom }
+        }).then(function (response) {
+            console.log(response.data);
+        })
+       
+    }
+
+    //check nguoi dung da thuoc nhom
+    function checknguoidngdathuocnhom() {
+       
+        var DSTKDaThuocnhom; // danh sach tai khoan da thuoc nhom
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_qlnhomnguoidung_LoadDSTaikhoan',
+            data: { manhom: $scope.manhomStatic }
+        }).then(function (response) {
+            DSTKDaThuocnhom = response.data;
+
+            var DanhSachTaiKhoan = document.getElementsByClassName('check_vaonhom');
+            
+            for (var i = 0; i < DSTKDaThuocnhom.length; i++) {
+                
+                for (var j = 0; j < DanhSachTaiKhoan.length; j++) {
+                    if (DSTKDaThuocnhom[i].USERNAME == DanhSachTaiKhoan[j].value)
+                    {
+                        DanhSachTaiKhoan[j].checked = true;
+                        DanhSachTaiKhoan[j].disabled = true;
+                    }
+                }
+            }
+        })
+        
+    }
+
+    // active
+    function active_clickbophan() {
+        var t = document.getElementsByClassName('click_bophan');
+        for (var i = 0; i < t.length; i++) {
+            t[i].onclick = function () {
+                for (var i = 0; i < t.length; i++) {
+                    t[i].classList.remove('active_nhom');
+                }
+                this.classList.add('active_nhom');
+
+            }
+        }
     }
 })

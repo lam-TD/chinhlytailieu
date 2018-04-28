@@ -133,13 +133,14 @@
         
         $(document).ready(function () {
             var clickNhom = document.getElementsByClassName('click_nhom');
-            console.log(clickNhom);
-            console.log(clickNhom[1]);
+            clickNhom.cls
+            //console.log(clickNhom);
+            
             for (var i = 0; i < clickNhom.length; i++) {
                 clickNhom[i].onclick = function () {
                     console.log(this.innerHTML);
                 }
-                console.log(clickNhom[i].innerText);;
+                console.log(clickNhom[i].innerText);
             }
 
             $('.click_nhom').click(function () {
