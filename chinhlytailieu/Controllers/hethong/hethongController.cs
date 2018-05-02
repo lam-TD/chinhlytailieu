@@ -32,7 +32,8 @@ namespace chinhlytailieu.Controllers.hethong
         {
             if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(),"quanlyphongban"))
             {
-                return View();
+                List<coquan> cq = ht_qlphongban_LoadCoQuan();
+                return View(cq);
             }
             else
             {
@@ -40,6 +41,14 @@ namespace chinhlytailieu.Controllers.hethong
             }
             
         }
+
+        public PartialViewResult phongcon(string id)
+        {
+            List<coquan> cq = ht_quanlyphong_loadcoquancon(id);
+            ViewBag.Count = cq.Count();
+            return PartialView("phongcon", cq);
+        }
+
         public ActionResult quanlychucvu()
         {
             if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "quanlychucvu"))
@@ -156,7 +165,46 @@ namespace chinhlytailieu.Controllers.hethong
 //============ QUAN LY NGUOI DUNG ===========
 
         //====== QUAN LY PHONG BAN ======
-        
+        public List<coquan> ht_qlphongban_LoadCoQuan()
+        {
+            List<coquan> cq = new List<coquan>();
+            DataTable dt = dataAsset.data.outputdataTable("ht_qlphongban_LoadCoQuan");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i]["CQQUANLY"].ToString() == "")
+                {
+                    coquan cquan = new coquan();
+                    cquan.Macoquan = dt.Rows[i]["MACOQUAN"].ToString();
+                    cquan.Tencoquan = dt.Rows[i]["TENCOQUAN"].ToString();
+                    cq.Add(cquan);
+                }
+            }
+            return cq;
+        }
+
+        public List<coquan> ht_quanlyphong_loadcoquancon(string cqquanly)
+        {
+            string[] namepara = { "@cqquanly" };
+            object[] valuepara = { cqquanly };
+
+            List<coquan> cq = new List<coquan>();
+            DataTable dt = dataAsset.data.outputdataTable("ht_quanlyphong_loadcoquancon", namepara, valuepara);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                coquan cquan = new coquan();
+                cquan.Macoquan = dt.Rows[i]["MACOQUAN"].ToString();
+                cquan.Tencoquan = dt.Rows[i]["TENCOQUAN"].ToString();
+                cq.Add(cquan);
+            }
+            return cq;
+        }
+
+        public string ht_quanlyphong_loadBoPhanTheoCoQuan(string madonvi)
+        {
+            string[] namepara = { "@madonvi" };
+            object[] valuepara = { madonvi };
+            return dataAsset.data.outputdata("ht_quanlyphong_loadBoPhanTheoCoQuan", namepara, valuepara);
+        }
         //====== QUAN LY CHUC VU ======
         public string DanhSachChucVu()
         {

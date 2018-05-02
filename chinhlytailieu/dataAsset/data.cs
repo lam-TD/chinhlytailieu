@@ -105,6 +105,7 @@ namespace chinhlytailieu.dataAsset
                 }
 
                 da = new SqlDataAdapter(command);
+
                 da.Fill(dt);
                 con.Close();
             }

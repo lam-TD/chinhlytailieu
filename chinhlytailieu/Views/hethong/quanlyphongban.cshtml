@@ -4,6 +4,14 @@
     Layout = null;
 }
 
+<style>
+    .active-coquan{
+        color: black;
+        font-weight: bold !important;
+        text-decoration: underline;
+    }
+</style>
+
 <div class="page-content" ng-controller="qlphongController">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
@@ -28,7 +36,7 @@
                             <div id="simpledatatable_wrapper">
                                 <div class="row">
                                     <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;">
-                                        <div class="col-md-9 col-xs-12">
+                                        <div class="col-md-9 col-xs-12" style="padding-left:0;">
                                             <label style="font-size: 18px;margin: 0;">
                                                 Quản lý phòng ban
                                             </label>
@@ -37,12 +45,17 @@
 
                                     <div class="col-md-3 col-xs-12">
                                         <div id="demo" data-collapse="accordion persist">
-                                            <a><h5>Fruits</h5></a>
-                                            <ul>
-                                                <li>Apple</li>
-                                                <li>Pear</li>
-                                                <li>Orange</li>
-                                            </ul>
+
+                                            @foreach (var item in Model)
+                                            {
+                                                <div>
+                                                    <a style="cursor:pointer" data-hienthi="@item.Macoquan" ng-click="hienthicon()" class="hienthicoquan"><h5>@item.Tencoquan</h5></a>
+                                                    <div data-hienthi="@item.Macoquan" class="coquancon" style="display: none;">
+                                                        @Html.Action("phongcon", "hethong", new { id = item.Macoquan })
+                                                    </div>
+                                                </div>
+                                            }
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-9 col-xs-12">
@@ -162,68 +175,13 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>TP</td>
-                                                        <td>Trưởng phòng</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>BGD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>TP</td>
-                                                        <td>Trưởng phòng</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>BGD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>TP</td>
-                                                        <td>Trưởng phòng</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>BGD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>TP</td>
-                                                        <td>Trưởng phòng</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>BGD</td>
-                                                        <td>Giám đốc</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>TP</td>
-                                                        <td>Trưởng phòng</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>GD</td>
-                                                        <td>Giám đốc</td>
+                                                    <tr dir-paginate="b in listBoPhan |itemsPerPage:12">
+                                                        <td>{{b.MAPHONG}}</td>
+                                                        <td>{{b.TENPHONG}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <dir-pagination-controls max-size="12" direction-links="true" boundary-links="true"></dir-pagination-controls>
                                         </div>
                                     </div>
                                 </div>

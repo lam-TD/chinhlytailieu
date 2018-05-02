@@ -186,6 +186,7 @@
     <Compile Include="Controllers\errorController.cs" />
     <Compile Include="Controllers\hethong\hethongController.cs" />
     <Compile Include="Controllers\hethong\qlnguoidung.cs" />
+    <Compile Include="Controllers\hethong\quanlyphongban.cs" />
     <Compile Include="Controllers\homeController.cs" />
     <Compile Include="Controllers\khaithactructuyen\khaithactailieuController.cs" />
     <Compile Include="Controllers\luuthongtailieu\luuthongtailieuController.cs" />
@@ -941,6 +942,7 @@
     <Content Include="Views\khaithactailieu\chucnang.cshtml" />
     <Content Include="Views\chinhlytailieu\chucnang.cshtml" />
     <Content Include="Views\error\ERRO_502.cshtml" />
+    <Content Include="Views\hethong\phongcon.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

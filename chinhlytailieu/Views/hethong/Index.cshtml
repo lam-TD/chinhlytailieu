@@ -22,7 +22,7 @@
 
 
 
-<div class="main-container container-fluid" ng-app="apphethong" ng-controller="qlchucvuController">
+<div class="main-container container-fluid" ng-app="apphethong">
     <!-- Page Container -->
     <div class="page-container">
         <!-- Page Sidebar -->
@@ -122,7 +122,7 @@
 
     function chon_phong_coquan() {
         var a = document.getElementsByClassName("chon_phong");
-        console.log(a);
+        //console.log(a);
         for (var i = 0; i < a.length; i++) {
             a[i].onclick = function () {
                 if (this.checked) {
