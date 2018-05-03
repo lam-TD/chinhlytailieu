@@ -121,44 +121,107 @@ namespace chinhlytailieu.Controllers.hethong
         }
         public ActionResult quanlyloaihinhkhaithac()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "quanlyloaihinhkhaithac"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
         public ActionResult phanquyenxulyquytrinh()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "phanquyenxulyquytrinh"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
 
         //cauhinhhethong
         public ActionResult cauhinhdangnhap()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "cauhinhdangnhap"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
         public ActionResult cauhinhkhac()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "cauhinhkhac"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
         public ActionResult cauhinhvitriluutru()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "cauhinhvitriluutru"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
 
         public ActionResult backupcosodulieu()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "backupcosodulieu"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
 
         //nhatky
         public ActionResult nhatkyhethong()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "nhatkyhethong"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
         public ActionResult nhatkythaydoitailieu()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "nhatkythaydoitailieu"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
         public ActionResult nhatkydocgia()
         {
-            return View();
+            if (Helper.phanquyen.checkUrlUser(Session["username"].ToString(), "nhatkydocgia"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("ERROR_502", "error");
+            }
         }
 
 
@@ -199,11 +262,48 @@ namespace chinhlytailieu.Controllers.hethong
             return cq;
         }
 
+        public JsonResult ht_qlphongban_LoadCoQuanJson()
+        {
+            List<coquan> cq = new List<coquan>();
+            DataTable dt = dataAsset.data.outputdataTable("ht_qlphongban_LoadCoQuan");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i]["CQQUANLY"].ToString() == "")
+                {
+                    coquan cquan = new coquan();
+                    cquan.Macoquan = dt.Rows[i]["MACOQUAN"].ToString();
+                    cquan.Tencoquan = dt.Rows[i]["TENCOQUAN"].ToString();
+                    cq.Add(cquan);
+                }
+            }
+            return Json(cq, JsonRequestBehavior.AllowGet);
+        }
+
         public string ht_quanlyphong_loadBoPhanTheoCoQuan(string madonvi)
         {
             string[] namepara = { "@madonvi" };
             object[] valuepara = { madonvi };
             return dataAsset.data.outputdata("ht_quanlyphong_loadBoPhanTheoCoQuan", namepara, valuepara);
+        }
+
+        public JsonResult ht_qlphongban_them_sua(int type,bophan phong)
+        {
+            string[] namepara = { "@maphong", "@tenphong", "@dvquanly", "@madonvi" };
+            if (phong.Dvquanly == null) { phong.Dvquanly = ""; }
+            object[] valuepara = { phong.Maphong, phong.Tenphong, phong.Dvquanly, phong.Madonvi };
+            
+            string result = string.Empty;
+
+            switch (type)
+            {
+                case 1:
+                    if (dataAsset.data.inputdata("ht_qlphongban_them", namepara, valuepara)) { result = "1"; } else { result = "-1"; }
+                    break;
+                case 2:
+                    if (dataAsset.data.inputdata("ht_qlphongban_sua", namepara, valuepara)) { result = "1"; } else { result = "-1"; }
+                    break;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         //====== QUAN LY CHUC VU ======
         public string DanhSachChucVu()
