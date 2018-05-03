@@ -2,9 +2,8 @@
     $scope.nhomchucnang = "Phân quyền";
     $scope.chucnang = "Phân quyền truy cập tài liệu";
 
-    $scope.pageSize = 5;
-    $scope.currentPage = 1;
-    $scope.showBtnSua = true;
+    $scope.disablePhanHe = true;
+    
 
     // load nhom nguoi dung
     $http({
@@ -75,6 +74,8 @@
                 this.classList.add('active_nhom')
             }
         }
+        $scope.disablePhanHe = false;
+        $scope.danhsachChucNang = null;
     }
 
     // load phan he
@@ -85,16 +86,62 @@
         $scope.phanhe = response.data;
     })
 
-    // click phan he
+    // click chon phan he
     $scope.click_phanhe = function (p) {
-        var idPhanHe = p.ID;
+        $scope.idPhanHe = p.ID;
         $http({
             method: 'POST',
             url: '/hethong/ht_phanquyen_loadChucNang',
-            data: { moduleID: idPhanHe,type: 1}
+            data: { moduleID: $scope.idPhanHe, type: 1 }
         }).then(function (response) {
-            //console.log(response.data);
             $scope.danhsachChucNang = response.data;
+            checkChucNangThuocNhom($scope.idPhanHe);
+        })
+    }
+
+    function checkChucNangThuocNhom(idphanhe) { 
+      
+        var DsChucNang; // danh sach tai khoan da thuoc nhom
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_loadChucNang',
+            data: { moduleID: idphanhe, type: 2, manhom: $scope.idnhom }
+        }).then(function (response) {
+            DsChucNang = response.data;
+       
+            var DanhSachTaiKhoan = document.getElementsByClassName('checkChoPhep');
+
+            for (var i = 0; i < DsChucNang.length; i++) {
+
+                for (var j = 0; j < DanhSachTaiKhoan.length; j++) {
+                    if (DsChucNang[i].Id == DanhSachTaiKhoan[j].value) {
+                        DanhSachTaiKhoan[j].checked = true;
+                    }
+                }
+            }
+        })
+    }
+
+    // ghi nhan
+    $scope.ghinhan = function () {
+        var DanhSachChucNang = document.getElementsByClassName('checkChoPhep');
+        var DSChuNangChoPhep = [];
+        // lay chuc nang da duoc chon
+        for (var i = 0; i < DanhSachChucNang.length; i++) {
+            if (DanhSachChucNang[i].checked) {
+                DSChuNangChoPhep.push(DanhSachChucNang[i].value);
+            }
+        }
+        
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_GhiNhanChucNang',
+            data: { idchucnang: DSChuNangChoPhep, manhom: $scope.idnhom }
+        }).then(function (response) {
+            if (response.data == "1") {
+                alert("Ghi nhận thành công");
+            }
+            else { alert("Ghi nhận thất bại"); }
         })
     }
 })

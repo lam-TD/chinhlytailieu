@@ -497,6 +497,12 @@ namespace chinhlytailieu.Controllers.hethong
         }
 
         // ====== PHAN QUYEN ======
+
+        // PHAN QUYEN TRUY CAP TAI LIEU
+
+
+        
+        // PHAN QUYEN CHUC NANG
         public string ht_phanquyen_loadPhanHe()
         {
             return dataAsset.data.outputdata("allModule");
@@ -537,6 +543,48 @@ namespace chinhlytailieu.Controllers.hethong
 
             }
             return Json(cn, JsonRequestBehavior.AllowGet);
+        }
+
+        //ghi nhan chuc nang duoc cho phep
+        public JsonResult ht_phanquyen_GhiNhanChucNang(string[] idchucnang, string manhom)
+        {
+            string[] namepara = { "@MANHOM", "@CHUCNANGID", "@ALLACTION", "@XEM", "@THEM", "@XOA", "@SUA" };
+            
+            string result = null;
+            try
+            {
+                for (int i = 0; i < idchucnang.Length; i++)
+                {
+                    object[] valuepara = { manhom, idchucnang[i], 1, 0, 0, 0, 0};
+                    dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNang", namepara, valuepara);
+                }
+                result = "1";
+            }
+            catch{result = "-1";}
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public string ht_qlphongban_LoadCoQuan2()
+        {
+            
+            DataTable dt = dataAsset.data.outputdataTable("ht_qlphongban_LoadCoQuan");
+            string result = null;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i]["CQQUANLY"].ToString() == "")
+                {
+                    result += "<option value='" + dt.Rows[i]["MACOQUAN"].ToString() + "'" + ">" + dt.Rows[i]["TENCOQUAN"].ToString() + "</option>";
+                    string cqquanly = dt.Rows[i]["MACOQUAN"].ToString();
+                    for (int j = 0; j < dt.Rows.Count; j++)
+                    {
+                        if (cqquanly == dt.Rows[j]["CQQUANLY"].ToString())
+                        {
+                            result += "<option value='" + dt.Rows[i]["MACOQUAN"].ToString() + "'" + ">├──" + dt.Rows[j]["TENCOQUAN"].ToString() + "</option>";
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }

@@ -60,11 +60,11 @@
                                                 <label class="col-md-1" style="padding: 0; margin-top: 7px; padding-left:5px;">
                                                     Phân hệ:
                                                 </label>
-                                                <select name="" class="col-md-9 col-xs-12" ng-model="selectPhanhe">
+                                                <select name="" class="col-md-9 col-xs-12" ng-model="selectPhanhe" ng-disabled="disablePhanHe">
                                                     <option value="" ng-selected="true"> --- Chọn phân hệ --- </option>
                                                     <option class="opPhanhe" ng-repeat="p in phanhe" value="{{p.ID}}" ng-click="click_phanhe(p)">{{p.ModuleName}}</option>
                                                 </select>
-                                                <button class="btn btn-primary" style="margin-left: 24px;">
+                                                <button class="btn btn-primary" style="margin-left: 24px;" ng-click="ghinhan()">
                                                     <i class="glyphicon glyphicon-copy"></i> Ghi nhận
                                                 </button>
                                             </div>
@@ -84,7 +84,7 @@
                                                         <td style="text-align: center;">
                                                             <div class="checkbox" style="margin: 0;">
                                                                 <label>
-                                                                    <input type="checkbox">
+                                                                    <input type="checkbox" class="checkChoPhep" value="{{cn.Id}}">
                                                                     <span class="text"></span>
                                                                 </label>
                                                             </div>

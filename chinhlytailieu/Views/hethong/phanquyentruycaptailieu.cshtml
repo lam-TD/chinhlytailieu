@@ -65,8 +65,9 @@
                                         <div class="row">
                                             <label class="col-sm-1">Cơ quan:</label>
                                             <select name="" class="col-md-4 col-xs-12">
-                                                <option value="">Trung tâm lưu trữ quốc gia</option>
-                                                <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                <option value="">--- Chọn cơ quan ---</option>
+                                                @Html.Raw(@Html.Action("ht_qlphongban_LoadCoQuan2", "hethong"))
+                                                
                                             </select>
 
                                             <label class="col-sm-1" style="margin-right: 5px;padding: 8px;">Phông:</label>
