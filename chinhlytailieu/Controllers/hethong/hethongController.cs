@@ -496,6 +496,47 @@ namespace chinhlytailieu.Controllers.hethong
             else { return Json("-1", JsonRequestBehavior.AllowGet); }
         }
 
+        // ====== PHAN QUYEN ======
+        public string ht_phanquyen_loadPhanHe()
+        {
+            return dataAsset.data.outputdata("allModule");
+        }
 
+        public JsonResult ht_phanquyen_loadChucNang(string moduleID, int type, string manhom = null)
+        {
+            // type check 1-load het du lieu, 2-load, kiem tra nhom co quyen hay chua 
+            List<chucnang> cn = new List<chucnang>();
+            string[] namepara = { "@moduleid" };
+            object[] valuepara = { moduleID };
+            DataTable dt = dataAsset.data.outputdataTable("ht_phanquyen_loadNhomChucNang", namepara, valuepara);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                int idnhom = int.Parse(dt.Rows[i]["ID"].ToString());
+                DataTable dtcn = new DataTable();
+                if (type == 1)
+                {
+                    string[] namepara2 = { "@idnhom"};
+                    object[] valuepara2 = { idnhom };
+                    dtcn = dataAsset.data.outputdataTable("ht_phanquyen_loadChucNangAll", namepara2, valuepara2);
+                    
+                }
+                else
+                {
+                    string[] namepara2 = { "@idnhom", "@manhom" };
+                    object[] valuepara2 = { idnhom, manhom };
+                    dtcn = dataAsset.data.outputdataTable("ht_phanquyen_loadChucNang", namepara2, valuepara2);
+                }
+
+                for (int j = 0; j < dtcn.Rows.Count; j++)
+                {
+                    chucnang c = new chucnang();
+                    c.Id = int.Parse(dtcn.Rows[j]["ID"].ToString());
+                    c.Tenchucnang = dtcn.Rows[j]["TENCHUCNANG"].ToString();
+                    cn.Add(c);
+                }
+
+            }
+            return Json(cn, JsonRequestBehavior.AllowGet);
+        }
     }
 }

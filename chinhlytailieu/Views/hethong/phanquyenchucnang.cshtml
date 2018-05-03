@@ -3,18 +3,17 @@
     Layout = null;
 }
 
-<div class="page-content" >
+<div class="page-content" ng-controller="phanquyenchucnangController">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="#">{{tieude}}</a>
+                <a href="#">{{nhomchucnang}}</a>
             </li>
             <li>
-                <a href="#">Tables</a>
+                <a href="#">{{chucnang}}</a>
             </li>
-            <li class="active">Data Tables</li>
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -28,7 +27,7 @@
                             <div id="simpledatatable_wrapper">
                                 <div class="row">
                                     <div class="col-md-3 col-xs-12" style="border-right: 1px solid #eee;">
-                                        <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;">
+                                        <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;padding-left:0;">
                                             <label>Nhóm người dùng</label>
                                         </div>
                                         <div class="">
@@ -41,85 +40,31 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr style="cursor: pointer;">
-                                                            <td>TT1</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BQ</td>
-                                                            <td>Phòng quản trị</td>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>BGD</td>
-                                                            <td>Giám đốc</td>
+                                                        <tr style="cursor: pointer;" class="clicknhom" ng-repeat="n in nhomnguoidung" ng-click="click_nhom(n)">
+                                                            <td>{{n.MANHOM}}</td>
+                                                            <td>{{n.TENNHOM}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <nav aria-label="Page navigation">
-                                                <ul class="pagination">
-                                                    <li>
-                                                        <a href="#" aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li>
-                                                        <a href="#" aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-9 col-xs-12">
-                                        <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;">
+                                        <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px; padding-left:0;">
                                             <label>Mục lục tài liệu</label>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-md-12" style="padding: 5px 10px;">
-                                                <label class="col-md-1" style="padding: 0; margin-top: 7px;">
+                                                <label class="col-md-1" style="padding: 0; margin-top: 7px; padding-left:5px;">
                                                     Phân hệ:
                                                 </label>
-                                                <select name="" class="col-md-9 col-xs-12">
-                                                    <option value="">Trung tâm lưu trữ quốc gia</option>
-                                                    <option value="">Trung tâm lưu trữ quốc gia</option>
+                                                <select name="" class="col-md-9 col-xs-12" ng-model="selectPhanhe">
+                                                    <option value="" ng-selected="true"> --- Chọn phân hệ --- </option>
+                                                    <option class="opPhanhe" ng-repeat="p in phanhe" value="{{p.ID}}" ng-click="click_phanhe(p)">{{p.ModuleName}}</option>
                                                 </select>
-                                                <button class="btn btn-primary" style="margin-left: 5px;" class="col-md-2">
+                                                <button class="btn btn-primary" style="margin-left: 24px;">
                                                     <i class="glyphicon glyphicon-copy"></i> Ghi nhận
                                                 </button>
                                             </div>
@@ -134,63 +79,8 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="checkbox" style="margin: 0;">
-                                                                <label>
-                                                                    <input type="checkbox">
-                                                                    <span class="text"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="checkbox" style="margin: 0;">
-                                                                <label>
-                                                                    <input type="checkbox">
-                                                                    <span class="text"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="checkbox" style="margin: 0;">
-                                                                <label>
-                                                                    <input type="checkbox">
-                                                                    <span class="text"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="checkbox" style="margin: 0;">
-                                                                <label>
-                                                                    <input type="checkbox">
-                                                                    <span class="text"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="checkbox" style="margin: 0;">
-                                                                <label>
-                                                                    <input type="checkbox">
-                                                                    <span class="text"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Lập mục lục nộp lưu</td>
+                                                    <tr dir-paginate="cn in danhsachChucNang |itemsPerPage:12">
+                                                        <td>{{cn.Tenchucnang}}</td>
                                                         <td style="text-align: center;">
                                                             <div class="checkbox" style="margin: 0;">
                                                                 <label>
@@ -203,25 +93,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination">
-                                                <li>
-                                                    <a href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <li class="active"><a href="#">1</a></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                                <li><a href="#">5</a></li>
-                                                <li>
-                                                    <a href="#" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        <dir-pagination-controls max-size="12" direction-links="true" boundary-links="true"></dir-pagination-controls>
                                     </div>
                                 </div>
                             </div>

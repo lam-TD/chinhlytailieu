@@ -760,7 +760,8 @@
     <Content Include="Scripts\danhmuc\coquanluutru\coquanluutru.js" />
     <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\hethong\apphethong.js" />
-    <Content Include="Scripts\hethong\phanquyenController.js" />
+    <Content Include="Scripts\hethong\phanquyenchucnangController.js" />
+    <Content Include="Scripts\hethong\phanquyentailieuController.js" />
     <Content Include="Scripts\hethong\qlchucvuController.js" />
     <Content Include="Scripts\hethong\qlnguoidungController.js" />
     <Content Include="Scripts\hethong\qlnhomnguoidung.js" />
