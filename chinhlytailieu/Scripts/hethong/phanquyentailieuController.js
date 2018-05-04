@@ -2,7 +2,7 @@
     $scope.nhomchucnang = "Phân quyền";
     $scope.chucnang = "Phân quyền truy cập tài liệu";
 
-    $scope.pageSize = 5;
+    $scope.disableCoQuan = true;
     $scope.currentPage = 1;
     $scope.showBtnSua = true;
 
@@ -74,11 +74,107 @@
                 this.classList.add('active_nhom')
             }
         }
-        //$scope.showBtnSua = false;
-        //console.log(c);
-        //$scope.cv = {
-        //    Machucvu: c.MACHUCVU,
-        //    Tenchucvu: c.TENCHUCVU
-        //}
+        $scope.manhom = n.MANHOM; // lay ma nhom
+        $scope.disableCoQuan = false;
+        $scope.loadcoquan();
+        
     }
+
+    // click danh sach phong
+    $scope.click_phong = function (d) {
+        var maphong = d.MAPHONG;
+        console.log(maphong);
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_loadQuyenTruyCap',
+            data: { idphong: maphong }
+        }).then(function (response) {
+            console.log(response.data);
+        })
+    }
+
+    // load phong khi chon co quan
+    $(document).ready(function () {
+        //selectcoquan();
+        //selectphong();
+    })
+
+    $scope.loadcoquan = function () {
+        $('select[name=select_coquan]').change(function () {
+            if ($scope.manhom == null) {
+                alert("Vui lòng chọn nhóm người dùng");
+                $scope.disableCoQuan = true;
+            }
+            else {
+                var idcoquan = $('select[name=select_coquan]').val();
+                $http({
+                    method: 'POST',
+                    url: '/hethong/ht_phanquyen_loadPhongTheoCoquan',
+                    data: { macoquan: idcoquan }
+                }).then(function (response) {
+                    $scope.danhsachPhong = response.data;
+                    $scope.loadphong();
+                }, function (response) {
+                    alert("Lỗi không tải được danh sách phông");
+                })
+            }
+        })
+    }
+
+    $scope.loadphong = function () {
+        // chon phong hien thi danh sach tai khoan truy cap tai lieu
+        $('select[name=select_phong]').change(function () {
+            $scope.maphong = $('select[name=select_phong]').val();
+            if ($scope.maphong == null) {
+                $scope.DSTruyCapTaiLieu = null;
+            }
+            else {
+                $http({
+                    method: 'POST',
+                    url: '/hethong/ht_phanquyen_loadPhong',
+                    data: { maphong: $scope.maphong }
+                }).then(function (response) {
+                    console.log(response.data[0].TENMUCLUC);
+                   
+                    $scope.DSTruyCapTaiLieu = response.data;
+                    $scope.dsth = {
+                        XEM: false,
+                        THEM: true,
+                        SUA: false,
+                        MAMUCLUC: response.data[0].MAMUCLUC,
+                        TENMUCLUC: response.data[0].TENMUCLUC
+                    }
+                }, function (response) {
+                    alert("Lỗi không tải được danh sách truy cập tài liệu");
+                })
+            }
+
+        })
+    }
+
+    
+
+    $scope.checkquyen = function () {
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_checkQuyenTruyCap',
+            data: { maphong: $scope.maphong, manhom: $scope.manhom }
+        }).then(function (response) {
+            var DSquyen = response.data;
+            var dscheck = document.getElementyId('truycapxem');
+            console.log(dscheck);
+        }, function (response) {
+            alert("Lỗi không tải được danh sách truy cập tài liệu");
+        })
+    }
+
+    $scope.ghinhan = function () {
+        var xem = document.getElementsByClassName('truycapxem').value;
+        var them = document.getElementsByClassName('truycapthem').value;
+        var sua = document.getElementsByClassName('truycapsua').value;
+        console.log(xem);
+        console.log(them);
+        console.log(sua);
+    }
+
 })

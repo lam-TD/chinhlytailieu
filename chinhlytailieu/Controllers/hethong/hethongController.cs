@@ -573,18 +573,42 @@ namespace chinhlytailieu.Controllers.hethong
             {
                 if (dt.Rows[i]["CQQUANLY"].ToString() == "")
                 {
-                    result += "<option value='" + dt.Rows[i]["MACOQUAN"].ToString() + "'" + ">" + dt.Rows[i]["TENCOQUAN"].ToString() + "</option>";
+                    result += "<option class='click_cq' ng-click='click_coquan()' " + " value='" + dt.Rows[i]["MACOQUAN"].ToString() + "'" + ">" + dt.Rows[i]["TENCOQUAN"].ToString() + "</option>";
                     string cqquanly = dt.Rows[i]["MACOQUAN"].ToString();
                     for (int j = 0; j < dt.Rows.Count; j++)
                     {
                         if (cqquanly == dt.Rows[j]["CQQUANLY"].ToString())
                         {
-                            result += "<option value='" + dt.Rows[i]["MACOQUAN"].ToString() + "'" + ">├──" + dt.Rows[j]["TENCOQUAN"].ToString() + "</option>";
+                            result += "<option class='click_cq' ng-click='click_coquan()' " + " value='" + dt.Rows[j]["MACOQUAN"].ToString() + "'" + ">├──" + dt.Rows[j]["TENCOQUAN"].ToString() + "</option>";
                         }
                     }
                 }
             }
             return result;
+        }
+
+        //hien thi co quan
+        public string ht_phanquyen_loadPhongTheoCoquan(string macoquan)
+        {
+            string[] namepara = { "@macoquan" };
+            object[] valuepara = { macoquan };
+            return dataAsset.data.outputdata("ht_phanquyen_loadPhongTheoCoquan", namepara, valuepara);
+        }
+
+
+        //hien thi danh sach quyen truy cap khi chon PHONG
+        public string ht_phanquyen_loadPhong(int maphong)
+        {
+            string[] namepara = { "@maphong" };
+            object[] valuepara = { @maphong };
+            return dataAsset.data.outputdata("ht_phanquyen_loadPhong", namepara, valuepara);
+        }
+
+        public string ht_phanquyen_checkQuyenTruyCap(int maphong, string manhom)
+        {
+            string[] namepara = { "@idphong", "@manhom" };
+            object[] valuepara = { maphong, manhom };
+            return dataAsset.data.outputdata("ht_phanquyen_loadQuyenTruyCap", namepara, valuepara);
         }
     }
 }
