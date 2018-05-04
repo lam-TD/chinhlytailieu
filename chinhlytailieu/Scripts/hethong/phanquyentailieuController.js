@@ -133,10 +133,6 @@
                     url: '/hethong/ht_phanquyen_loadphongnull',
                     data: { maphong: $scope.maphong }
                 }).then(function (response2) {
-                    //var ten = response2[0].TENMUCLUC;
-                    //var ma = response2[0].MAMUCLUC
-                    //$scope.DSTruyCapTaiLieu = null;
-
                     $scope.DSTruyCapTaiLieu = response2.data;
                     $scope.DSTruyCapTaiLieu.XEM = false;
                     $scope.DSTruyCapTaiLieu.THEM = false;
@@ -154,29 +150,32 @@
         })
     }
 
-    
-
-    $scope.checkquyen = function () {
-        $http({
-            method: 'POST',
-            url: '/hethong/ht_phanquyen_checkQuyenTruyCap',
-            data: { maphong: $scope.maphong, manhom: $scope.manhom }
-        }).then(function (response) {
-            var DSquyen = response.data;
-            var dscheck = document.getElementyId('truycapxem');
-            console.log(dscheck);
-        }, function (response) {
-            alert("Lỗi không tải được danh sách truy cập tài liệu");
-        })
-    }
 
     $scope.ghinhan = function () {
-        var xem = document.getElementsByClassName('truycapxem').value;
-        var them = document.getElementsByClassName('truycapthem').value;
-        var sua = document.getElementsByClassName('truycapsua').value;
-        console.log(xem);
-        console.log(them);
-        console.log(sua);
+        var Mamucluc = $scope.DSTruyCapTaiLieu[0].MAMUCLUC;
+        console.log(Mamucluc);
+        var xem = document.getElementsByClassName('truycapxem');
+        var them = document.getElementsByClassName('truycapthem');
+        var sua = document.getElementsByClassName('truycapsua');
+
+        $scope.truycap = {
+            MANHOM: $scope.manhom,
+            PHONGID: $scope.maphong,
+            MAMUCLUC: Mamucluc,
+            XEM: xem[0].checked,
+            THEM: them[0].checked,
+            SUA: sua[0].checked
+        }
+
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_GhiNhan',
+            data: { tc: $scope.truycap }
+        }).then(function(response){
+            if (response.data == "1") {
+                alert("Ghi nhận thành công");
+            } else { alert("Ghi nhận thất bại"); }
+        })
     }
 
 })

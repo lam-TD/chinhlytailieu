@@ -62,7 +62,9 @@
     }
 
 
+
     // click chon nhom
+    
     $scope.click_nhom = function (n) {
         $scope.idnhom = n.MANHOM;
         var t = document.getElementsByClassName('clicknhom');
@@ -76,6 +78,9 @@
         }
         $scope.disablePhanHe = false;
         $scope.danhsachChucNang = null;
+        if ($scope.idPhanHe != null ) {
+            $scope.click_phanhe();
+        }
     }
 
     // load phan he
@@ -87,8 +92,16 @@
     })
 
     // click chon phan he
-    $scope.click_phanhe = function (p) {
-        $scope.idPhanHe = p.ID;
+    $(document).ready(function () {
+        $('select[name=select_phanhe]').change(function () {
+            $scope.idPhanHe = $('select[name=select_phanhe]').val();
+            $scope.click_phanhe();
+        })
+    })
+
+
+
+    $scope.click_phanhe = function () {
         $http({
             method: 'POST',
             url: '/hethong/ht_phanquyen_loadChucNang',
@@ -125,18 +138,31 @@
     // ghi nhan
     $scope.ghinhan = function () {
         var DanhSachChucNang = document.getElementsByClassName('checkChoPhep');
-        var DSChuNangChoPhep = [];
+        var DSChuNangGhiNhan = [];
         // lay chuc nang da duoc chon
         for (var i = 0; i < DanhSachChucNang.length; i++) {
             if (DanhSachChucNang[i].checked) {
-                DSChuNangChoPhep.push(DanhSachChucNang[i].value);
+                var lam = {
+                    Chucnangid: DanhSachChucNang[i].value,
+                    Allaction: true
+                }
+                DSChuNangGhiNhan.push(lam);
+            }
+            else {
+                var lam = {
+                    Chucnangid: DanhSachChucNang[i].value,
+                    Allaction: false
+                }
+                DSChuNangGhiNhan.push(lam);
             }
         }
         
+        console.log(DSChuNangGhiNhan);
+
         $http({
             method: 'POST',
             url: '/hethong/ht_phanquyen_GhiNhanChucNang',
-            data: { idchucnang: DSChuNangChoPhep, manhom: $scope.idnhom }
+            data: { nhomcn: DSChuNangGhiNhan, manhom: $scope.idnhom }
         }).then(function (response) {
             if (response.data == "1") {
                 alert("Ghi nhận thành công");

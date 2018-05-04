@@ -60,7 +60,7 @@
                                                 <label class="col-md-1" style="padding: 0; margin-top: 7px; padding-left:5px;">
                                                     Phân hệ:
                                                 </label>
-                                                <select name="" class="col-md-9 col-xs-12" ng-model="selectPhanhe" ng-disabled="disablePhanHe">
+                                                <select name="select_phanhe" class="col-md-9 col-xs-12" ng-model="selectPhanhe" ng-disabled="disablePhanHe">
                                                     <option value="" ng-selected="true"> --- Chọn phân hệ --- </option>
                                                     <option class="opPhanhe" ng-repeat="p in phanhe" value="{{p.ID}}" ng-click="click_phanhe(p)">{{p.ModuleName}}</option>
                                                 </select>

@@ -546,17 +546,44 @@ namespace chinhlytailieu.Controllers.hethong
         }
 
         //ghi nhan chuc nang duoc cho phep
-        public JsonResult ht_phanquyen_GhiNhanChucNang(string[] idchucnang, string manhom)
+        public bool ht_phanquyen_checkChucNang(string manhom, int idchucnang)
+        {
+            string[] namepara = { "@manhom", "@chucnangid" };
+            object[] valuepara = { manhom, idchucnang };
+            DataTable dt = dataAsset.data.outputdataTable("ht_phanquyen_checkChucNang", namepara, valuepara);
+            if (dt.Rows.Count > 0){ return true; }
+            else { return false; }
+        }
+        public JsonResult ht_phanquyen_GhiNhanChucNang(nhom_chucnang[] nhomcn, string manhom)
         {
             string[] namepara = { "@MANHOM", "@CHUCNANGID", "@ALLACTION", "@XEM", "@THEM", "@XOA", "@SUA" };
             
             string result = null;
             try
             {
-                for (int i = 0; i < idchucnang.Length; i++)
+                foreach (nhom_chucnang cn in nhomcn)
                 {
-                    object[] valuepara = { manhom, idchucnang[i], 1, 0, 0, 0, 0};
-                    dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNang", namepara, valuepara);
+                    if (ht_phanquyen_checkChucNang(manhom, cn.Chucnangid))
+                    {
+                        
+                        object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction };
+                        if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNangUpdate", namepara, valuepara))
+                        {
+                            result = "-1";
+                            break;
+                        }
+
+                    }
+                    else
+                    {
+                        object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction, 0, 0, 0, 0 };
+                        if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNang", namepara, valuepara))
+                        {
+                            result = "-1";
+                            break;
+                        }
+
+                    }
                 }
                 result = "1";
             }
@@ -611,11 +638,32 @@ namespace chinhlytailieu.Controllers.hethong
             return dataAsset.data.outputdata("ht_phanquyen_loadphongnull", namepara, valuepara);
         }
 
-        public string ht_phanquyen_checkQuyenTruyCap(int maphong, string manhom)
+        public bool ht_phanquyen_checkTontaiQuyenTruyCap(truycaptailieu tc)
         {
-            string[] namepara = { "@idphong", "@manhom" };
-            object[] valuepara = { maphong, manhom };
-            return dataAsset.data.outputdata("ht_phanquyen_loadQuyenTruyCap", namepara, valuepara);
+            string[] namepara = { "@MANHOM", "@PHONGID", "@MAMUCLUC"};
+            object[] valuepara = { tc.Manhom, tc.Phongid, tc.Mamucluc };
+            DataTable dt = dataAsset.data.outputdataTable("ht_phanquyen_checkTontaiQuyenTruyCap", namepara, valuepara);
+            if (dt.Rows.Count > 0) { return true; }
+            else { return false; }
+        }
+
+        public JsonResult ht_phanquyen_GhiNhan(truycaptailieu tc)
+        {
+            string result = null;
+            string[] namepara = { "@MANHOM", "@PHONGID", "@MAMUCLUC", "@XEM", "@SUA", "@THEM" };
+            object[] valuepara = { tc.Manhom, tc.Phongid, tc.Mamucluc, tc.Xem, tc.Them, tc.Sua };
+            if (ht_phanquyen_checkTontaiQuyenTruyCap(tc))
+            {
+                if (dataAsset.data.inputdata("ht_phanquyen_GhiNhanTruyCapTLUpDate", namepara, valuepara)) { result = "1"; }
+                else { result = "-1"; }
+            }
+            else
+            {
+                if (dataAsset.data.inputdata("ht_phanquyen_GhiNhanTruyCapTL", namepara, valuepara)) { result = "1"; }
+                else { result = "-1"; }
+            }
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
