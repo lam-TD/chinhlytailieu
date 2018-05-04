@@ -6,6 +6,7 @@
     $scope.currentPage = 1;
     $scope.showBtnSua = true;
 
+    
     // load nhom nguoi dung
     $http({
         method: 'GET',
@@ -76,30 +77,17 @@
         }
         $scope.manhom = n.MANHOM; // lay ma nhom
         $scope.disableCoQuan = false;
-        $scope.loadcoquan();
-        
+        //
+        if ($scope.maphong != null && $scope.manhom != null) {
+            $scope.click_phong();
+        }
     }
 
     // click danh sach phong
-    $scope.click_phong = function (d) {
-        var maphong = d.MAPHONG;
-        console.log(maphong);
-        $http({
-            method: 'POST',
-            url: '/hethong/ht_phanquyen_loadQuyenTruyCap',
-            data: { idphong: maphong }
-        }).then(function (response) {
-            console.log(response.data);
-        })
-    }
+    
 
     // load phong khi chon co quan
     $(document).ready(function () {
-        //selectcoquan();
-        //selectphong();
-    })
-
-    $scope.loadcoquan = function () {
         $('select[name=select_coquan]').change(function () {
             if ($scope.manhom == null) {
                 alert("Vui lòng chọn nhóm người dùng");
@@ -113,42 +101,56 @@
                     data: { macoquan: idcoquan }
                 }).then(function (response) {
                     $scope.danhsachPhong = response.data;
-                    $scope.loadphong();
                 }, function (response) {
                     alert("Lỗi không tải được danh sách phông");
                 })
             }
         })
-    }
 
-    $scope.loadphong = function () {
-        // chon phong hien thi danh sach tai khoan truy cap tai lieu
         $('select[name=select_phong]').change(function () {
             $scope.maphong = $('select[name=select_phong]').val();
             if ($scope.maphong == null) {
                 $scope.DSTruyCapTaiLieu = null;
             }
             else {
+                $scope.click_phong();
+            }
+        })
+    })
+
+    // load danh sach quyen truy cap khi chon phong
+    $scope.click_phong = function () {
+        $http({
+            method: 'POST',
+            url: '/hethong/ht_phanquyen_loadPhong',
+            data: { maphong: $scope.maphong, manhom: $scope.manhom }
+        }).then(function (response) {
+            var lam = response.data;
+            //console.log(lam.length);
+            if (lam.length == 0) {
                 $http({
                     method: 'POST',
-                    url: '/hethong/ht_phanquyen_loadPhong',
+                    url: '/hethong/ht_phanquyen_loadphongnull',
                     data: { maphong: $scope.maphong }
-                }).then(function (response) {
-                    console.log(response.data[0].TENMUCLUC);
-                   
-                    $scope.DSTruyCapTaiLieu = response.data;
-                    $scope.dsth = {
-                        XEM: false,
-                        THEM: true,
-                        SUA: false,
-                        MAMUCLUC: response.data[0].MAMUCLUC,
-                        TENMUCLUC: response.data[0].TENMUCLUC
-                    }
-                }, function (response) {
-                    alert("Lỗi không tải được danh sách truy cập tài liệu");
+                }).then(function (response2) {
+                    //var ten = response2[0].TENMUCLUC;
+                    //var ma = response2[0].MAMUCLUC
+                    //$scope.DSTruyCapTaiLieu = null;
+
+                    $scope.DSTruyCapTaiLieu = response2.data;
+                    $scope.DSTruyCapTaiLieu.XEM = false;
+                    $scope.DSTruyCapTaiLieu.THEM = false;
+                    $scope.DSTruyCapTaiLieu.SUA = false;
+                }, function (response2) {
+                    alert("Lỗi không tải được danh sách truy cập tài liệu null");
                 })
             }
+            else {
 
+                $scope.DSTruyCapTaiLieu = response.data;
+            }
+        }, function (response) {
+            alert("Lỗi không tải được danh sách truy cập tài liệu");
         })
     }
 

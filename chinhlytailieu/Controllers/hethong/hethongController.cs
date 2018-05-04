@@ -597,11 +597,18 @@ namespace chinhlytailieu.Controllers.hethong
 
 
         //hien thi danh sach quyen truy cap khi chon PHONG
-        public string ht_phanquyen_loadPhong(int maphong)
+        public string ht_phanquyen_loadPhong(int maphong, string manhom)
         {
-            string[] namepara = { "@maphong" };
-            object[] valuepara = { @maphong };
+            string[] namepara = { "@idphong", "@manhom" };
+            object[] valuepara = { maphong, manhom };
             return dataAsset.data.outputdata("ht_phanquyen_loadPhong", namepara, valuepara);
+        }
+
+        public string ht_phanquyen_loadphongnull(int maphong)
+        {
+            string[] namepara = { "@idphong"};
+            object[] valuepara = { maphong };
+            return dataAsset.data.outputdata("ht_phanquyen_loadphongnull", namepara, valuepara);
         }
 
         public string ht_phanquyen_checkQuyenTruyCap(int maphong, string manhom)
