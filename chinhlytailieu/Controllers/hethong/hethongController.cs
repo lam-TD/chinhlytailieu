@@ -554,9 +554,16 @@ namespace chinhlytailieu.Controllers.hethong
             if (dt.Rows.Count > 0){ return true; }
             else { return false; }
         }
+
+        public bool ht_phanquyen_XoaChucNang(string manhom, int idchucnang)
+        {
+            string[] namepara = { "@MANHOM", "@CHUCNANGID" };
+            object[] valuepara = { manhom, idchucnang };
+            if (dataAsset.data.inputdata("ht_phanquyen_XoaChucNang", namepara, valuepara)) { return true; }
+            else { return false; }
+        }
         public JsonResult ht_phanquyen_GhiNhanChucNang(nhom_chucnang[] nhomcn, string manhom)
         {
-            string[] namepara = { "@MANHOM", "@CHUCNANGID", "@ALLACTION", "@XEM", "@THEM", "@XOA", "@SUA" };
             
             string result = null;
             try
@@ -565,24 +572,34 @@ namespace chinhlytailieu.Controllers.hethong
                 {
                     if (ht_phanquyen_checkChucNang(manhom, cn.Chucnangid))
                     {
-                        
-                        object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction };
-                        if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNangUpdate", namepara, valuepara))
+                        if (cn.Allaction == false)
                         {
-                            result = "-1";
-                            break;
+                            if (!ht_phanquyen_XoaChucNang(manhom, cn.Chucnangid)){ result = "-1"; break; }
                         }
+                        //else
+                        //{
+                        //    string[] namepara = { "@MANHOM", "@CHUCNANGID", "@ALLACTION" };
+                        //    object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction };
+                        //    if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNangUpdate", namepara, valuepara))
+                        //    {
+                        //        result = "-1";
+                        //        break;
+                        //    }
+                        //}
 
                     }
                     else
                     {
-                        object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction, 0, 0, 0, 0 };
-                        if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNang", namepara, valuepara))
+                        if (cn.Allaction == true)
                         {
-                            result = "-1";
-                            break;
+                            string[] namepara = { "@MANHOM", "@CHUCNANGID", "@ALLACTION", "@XEM", "@THEM", "@XOA", "@SUA" };
+                            object[] valuepara = { manhom, cn.Chucnangid, cn.Allaction, 0, 0, 0, 0 };
+                            if (!dataAsset.data.inputdata("ht_phanquyen_GhiNhanChucNang", namepara, valuepara))
+                            {
+                                result = "-1";
+                                break;
+                            }
                         }
-
                     }
                 }
                 result = "1";
