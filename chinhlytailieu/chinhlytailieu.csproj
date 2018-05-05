@@ -210,6 +210,9 @@
     <Compile Include="Models\docgia\yeucaudocgia.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\pq\pq.cs" />
+    <Compile Include="Models\pro\banggia.cs" />
+    <Compile Include="Models\pro\duyet_yeucau.cs" />
+    <Compile Include="Models\pro\loaiquytrinh.cs" />
     <Compile Include="Models\users\bophan.cs" />
     <Compile Include="Models\users\chucvu.cs" />
     <Compile Include="Models\users\coquan.cs" />
@@ -766,6 +769,7 @@
     <Content Include="Scripts\hethong\qlnguoidungController.js" />
     <Content Include="Scripts\hethong\qlnhomnguoidung.js" />
     <Content Include="Scripts\hethong\qlphongban.js" />
+    <Content Include="Scripts\hethong\qlquytrinhController.js" />
     <Content Include="Scripts\home\home.js" />
     <Content Include="Scripts\home\layouttop\layouttop.js" />
     <Content Include="Scripts\khaithactailieu\appkhaithactailieu.js" />

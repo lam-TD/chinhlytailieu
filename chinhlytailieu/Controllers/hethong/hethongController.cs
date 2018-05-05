@@ -1,5 +1,6 @@
 ﻿using chinhlytailieu.Helper;
 using chinhlytailieu.Models.admin;
+using chinhlytailieu.Models.pro;
 using chinhlytailieu.Models.users;
 using System;
 using System.Collections.Generic;
@@ -679,7 +680,84 @@ namespace chinhlytailieu.Controllers.hethong
                 if (dataAsset.data.inputdata("ht_phanquyen_GhiNhanTruyCapTL", namepara, valuepara)) { result = "1"; }
                 else { result = "-1"; }
             }
-            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        // ====== QUAN LY QUY TRINH ======
+        // quan ly quy trinh
+        public string thqt_LoadLoaiQT()
+        {
+            return dataAsset.data.outputdata("thqt_LoadLoaiQT");
+        }
+
+        // check ma loai quy trinh
+        public bool thqt_CheckMaLoaiQT(string maloai)
+        {
+            string[] namepara = { "@maloai" };
+            object[] valuepara = { maloai };
+            DataTable dt = dataAsset.data.outputdataTable("thqt_CheckMaLoaiQT", namepara, valuepara);
+            if (dt.Rows.Count > 0) { return true; }
+            else { return false; }
+        }
+
+        // them - sua loai quy trinh
+        public JsonResult thqt_ThemSuaQT(int type, loaiquytrinh qt)
+        {
+            string[] namepara = { "@MALOAI", "@TENLOAI", "@THUPHI", "@SONGAY" };
+            object[] valuepara = { qt.Maloai, qt.Tenloai, qt.Thuphi, qt.Songay };
+            string result = string.Empty;
+            switch (type)
+            {
+                case 1:
+                    if (thqt_CheckMaLoaiQT(qt.Maloai)){ result = "2"; }
+                    else
+                    {
+                        if (dataAsset.data.inputdata("thqt_ThemQuyTrinh", namepara, valuepara))
+                        { result = "1"; }
+                        else { result = "-1"; }
+                    }
+                    break;
+                case 2:
+                    if (dataAsset.data.inputdata("thqt_SuaQuyTrinh", namepara, valuepara)) { result = "1"; }
+                    else { result = "-1"; }
+                    break;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        // kiem tra co the xoa loai quy trinh duoc hay khong
+        public bool thqt_checkXoaLQT(string maloai) // true -> co the xoa; false -> ko xoa duoc
+        {
+            string[] namepara = { "@maloai" };
+            object[] valuepara = { maloai };
+            DataTable dt =  dataAsset.data.outputdataTable("thqt_checkXoaLQT", namepara, valuepara);
+            if (dt.Rows.Count == 0)
+            {
+                DataTable dt2 = dataAsset.data.outputdataTable("thqt_checkXoaLQT2", namepara, valuepara);
+                if (dt2.Rows.Count == 0)
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+            else { return false; }
+        }
+
+        // xoa quy trinh
+        public JsonResult thqt_XoaLoaiQuyTrinh(string maloai)
+        {
+            string result;
+            if (thqt_checkXoaLQT(maloai))
+            {
+                string[] namepara = { "@maloai" };
+                object[] valuepara = { maloai };
+                if (dataAsset.data.inputdata("thqt_XoaLoaiQuyTrinh", namepara,valuepara))
+                { result = "1"; }
+                else
+                { result = "-1"; }
+            }
+            else
+            { result = "2"; }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }

@@ -3,18 +3,18 @@
     Layout = null;
 }
 
-<div class="page-content">
+<div class="page-content" ng-controller="qlquytrinhController">
     <!-- Page Breadcrumb -->
     <div class="page-breadcrumbs">
         <ul class="breadcrumb">
             <li>
                 <i class="fa fa-home"></i>
-                <a href="#">{{tieude}}</a>
+                <a href="#">{{nhomchucnang}}</a>
             </li>
             <li>
-                <a href="#">Tables</a>
+                <a href="#">{{chucnang}}</a>
             </li>
-            <li class="active">Data Tables</li>
+            
         </ul>
     </div>
     <!-- /Page Breadcrumb -->
@@ -25,7 +25,7 @@
                 <div class="widget">
                     <div class="widget-body">
                         <div class="flip-scroll">
-                            <form id="validateSubmitForm" name="myForm" method="post">
+                            <form name="formLoaiQuyTrinh">
                                 <div id="simpledatatable_wrapper">
                                     <div class="row">
                                         <div class="col-md-12" style="border-bottom: 1px dotted #ddd; margin-bottom: 10px;">
@@ -33,7 +33,7 @@
                                         </div>
                                         <div class="col-md-4 col-xs-12" style="border-right: 1px solid #eee;">
                                             <div class="" style="margin-bottom: 5px;">
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="modal('add')">
                                                     <i class="glyphicon glyphicon-file"></i>Thêm
                                                 </button>
                                                 <!-- Modal them -->
@@ -42,7 +42,6 @@
 
                                                         <!-- Modal content-->
                                                         <div class="modal-content">
-                                                            <form action="">
                                                                 <div class="modal-header">
                                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                                     <h4 class="modal-title">Thông tin quy trình xét duyệt</h4>
@@ -52,30 +51,38 @@
                                                                         <div class="form-group col-md-12">
                                                                             <label class="col-md-3">Mã quy trình</label>
                                                                             <div class="col-md-9">
-                                                                                <input type="text" class="form-control" id="definput" placeholder="Mã">
+                                                                                <input type="text" class="form-control" name="txtmaloai" placeholder="Mã" ng-model="qt.maloai" ng-required="true" ng-disabled="txtdisable">
+                                                                                <span style="color:red;" ng-show="formLoaiQuyTrinh.txtmaloai.$touched && formLoaiQuyTrinh.txtmaloai.$invalid">Mã loại không được để trống</span>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="form-group col-md-12">
                                                                             <label class="col-md-3">Tên quy trình</label>
                                                                             <div class="col-md-9">
-                                                                                <input type="text" class="form-control" placeholder="Tên quy trình">
+                                                                                <input type="text" class="form-control" name="txttenloai" placeholder="Tên quy trình" ng-model="qt.tenloai" ng-required="true">
+                                                                                <span style="color:red;" ng-show="formLoaiQuyTrinh.txttenloai.$touched && formLoaiQuyTrinh.txttenloai.$invalid">Tên loại không được để trống</span>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="form-group col-md-12">
                                                                             <label class="col-md-3">Thu phí</label>
                                                                             <div class="col-md-9">
-                                                                                <div class="checkbox">
-                                                                                    <input type="checkbox">
+                                                                                @*<div class="checkbox">
+                                                                                    <input type="checkbox" ng-model="qt.thuphi">
                                                                                     <span class="text"></span>
+                                                                                </div>*@
+                                                                                <div class="checkbox" style="margin: 0;">
+                                                                                    <label>
+                                                                                        <input type="checkbox" ng-model="qt.thuphi">
+                                                                                        <span class="text"></span>
+                                                                                    </label>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="save(state)" ng-disabled="formLoaiQuyTrinh.$invalid">
                                                                         <i class="fa fa-save"></i>Ghi nhận
                                                                     </button>
                                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -85,69 +92,16 @@
                                                                         <i class="glyphicon glyphicon-log-in"></i>Thoát
                                                                     </button>
                                                                 </div>
-                                                            </form>
                                                         </div>
                                                     </div>
                                                 </div><!-- end Modal them -->
 
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalsua">
+                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" ng-disabled="btn_disable" ng-click="modal('edit')">
                                                     <i class="fa fa-pencil-square-o"></i>Sửa
                                                 </button>
-                                                <!-- Modal sua -->
-                                                <div class="modal fade" id="myModalsua" role="dialog">
-                                                    <div class="modal-dialog">
+                                                
 
-                                                        <!-- Modal content-->
-                                                        <div class="modal-content">
-                                                            <form action="">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                    <h4 class="modal-title">Thông tin quy trình xét duyệt</h4>
-                                                                </div>
-                                                                <div class="modal-body" style="min-height: 180px;">
-                                                                    <div class="collapse in">
-                                                                        <div class="form-group col-md-12">
-                                                                            <label class="col-md-3">Mã quy trình</label>
-                                                                            <div class="col-md-9">
-                                                                                <input type="text" class="form-control" id="definput" placeholder="Mã">
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-12">
-                                                                            <label class="col-md-3">Tên quy trình</label>
-                                                                            <div class="col-md-9">
-                                                                                <input type="text" class="form-control" placeholder="Tên quy trình">
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="form-group col-md-12">
-                                                                            <label class="col-md-3">Thu phí</label>
-                                                                            <div class="col-md-9">
-                                                                                <div class="checkbox">
-                                                                                    <input type="checkbox">
-                                                                                    <span class="text"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                                        <i class="fa fa-save"></i>Ghi nhận
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                                                        <i class="fa fa-save"></i>Ghi nhận và thêm mới
-                                                                    </button>
-                                                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                                                        <i class="glyphicon glyphicon-log-in"></i>Thoát
-                                                                    </button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- end Modal sua -->
-
-                                                <button class="btn btn btn-danger">
+                                                <button class="btn btn btn-danger" ng-disabled="btn_disable" ng-click="delete()">
                                                     <span class="glyphicon glyphicon-remove"></span>Xóa
                                                 </button>
                                             </div>
@@ -162,49 +116,13 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
-                                                            </tr>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
-                                                            </tr>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
-                                                            </tr>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
-                                                            </tr>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
-                                                            </tr>
-                                                            <tr style="cursor: pointer;">
-                                                                <td>TK</td>
-                                                                <td>Quy trình xét duyệt tài khoản độc giả</td>
+                                                            <tr class="clickLQT" style="cursor: pointer;" ng-repeat="qt in listLoaiQuyTrinh" ng-click="click_loaiQT(qt)">
+                                                                <td>{{qt.MALOAI}}</td>
+                                                                <td>{{qt.TENLOAI}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <nav aria-label="Page navigation">
-                                                    <ul class="pagination">
-                                                        <li>
-                                                            <a href="#" aria-label="Previous">
-                                                                <span aria-hidden="true">&laquo;</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="active"><a href="#">1</a></li>
-                                                        <li><a href="#">2</a></li>
-                                                        <li>
-                                                            <a href="#" aria-label="Next">
-                                                                <span aria-hidden="true">&raquo;</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
                                             </div>
                                         </div>
                                         <div class="col-md-8 col-xs-12">
