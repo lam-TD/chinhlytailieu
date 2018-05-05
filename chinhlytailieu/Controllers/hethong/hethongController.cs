@@ -701,7 +701,7 @@ namespace chinhlytailieu.Controllers.hethong
         }
 
         // them - sua loai quy trinh
-        public JsonResult thqt_ThemSuaQT(int type, loaiquytrinh qt)
+        public JsonResult thqt_ThemSuaLoaiQT(int type, loaiquytrinh qt)
         {
             string[] namepara = { "@MALOAI", "@TENLOAI", "@THUPHI", "@SONGAY" };
             object[] valuepara = { qt.Maloai, qt.Tenloai, qt.Thuphi, qt.Songay };
@@ -712,13 +712,13 @@ namespace chinhlytailieu.Controllers.hethong
                     if (thqt_CheckMaLoaiQT(qt.Maloai)){ result = "2"; }
                     else
                     {
-                        if (dataAsset.data.inputdata("thqt_ThemQuyTrinh", namepara, valuepara))
+                        if (dataAsset.data.inputdata("thqt_ThemLoaiQuyTrinh", namepara, valuepara))
                         { result = "1"; }
                         else { result = "-1"; }
                     }
                     break;
                 case 2:
-                    if (dataAsset.data.inputdata("thqt_SuaQuyTrinh", namepara, valuepara)) { result = "1"; }
+                    if (dataAsset.data.inputdata("thqt_SuaLoaiQuyTrinh", namepara, valuepara)) { result = "1"; }
                     else { result = "-1"; }
                     break;
             }
@@ -759,6 +759,14 @@ namespace chinhlytailieu.Controllers.hethong
             else
             { result = "2"; }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        // load quy trinh theo loai quy trinh
+        public string thqt_LoadQuyTrinh(string loaiqt)
+        {
+            string[] namepara = { "@loaiqt" };
+            object[] valuepara = { loaiqt };
+            return dataAsset.data.outputdata("thqt_LoadQuyTrinh", namepara, valuepara);
         }
     }
 }

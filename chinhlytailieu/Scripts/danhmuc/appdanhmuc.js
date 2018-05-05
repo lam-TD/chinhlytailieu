@@ -3,24 +3,19 @@
 app.config(function ($routeProvider) {
     $routeProvider
     .when('/', {
-        templateUrl: '../coquanluutru',
-        controller: 'phanheQLthuthapTLController'
+        templateUrl: '../coquanluutru'
     })
     .when('/phongtailieu', {
-        templateUrl: '../phongtailieu',
-        controller: 'lapkehoachchinhlyController'
+        templateUrl: '../phongtailieu'
     })
     .when('/loaihinhtailieu', {
-        templateUrl: '../loaihinhtailieu',
-        controller: 'taomuclucController'
+        templateUrl: '../loaihinhtailieu'
     })
     .when('/thoihanbaoquan', {
-        templateUrl: '../thoihanbaoquan',
-        controller: 'nhaphosoController'
+        templateUrl: '../thoihanbaoquan'
     })
     .when('/tudien', {
-        templateUrl: '../tudien',
-        controller: 'nhaphosoController'
+        templateUrl: '../tudien'
     })
     .otherwise({
         redirectTo: '/'

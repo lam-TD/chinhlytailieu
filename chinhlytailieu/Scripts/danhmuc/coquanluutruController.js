@@ -1,6 +1,6 @@
-﻿app.controller("qlquytrinhController", function ($scope, $http) {
-    $scope.nhomchucnang = "Quản lý người dùng";
-    $scope.chucnang = "Quản lý phòng ban";
+﻿app.controller("coquanluutruController", function ($scope, $http) {
+    $scope.nhomchucnang = "Danh mục";
+    $scope.chucnang = "Cơ quan luu trữ";
 
     $scope.btn_disable = true;
     $scope.flag = true; // co bao giu hay xoa $scope.qt
@@ -57,7 +57,7 @@
         else {
             $scope.txtdisable = true;
         }
-        
+
     }
 
     // them -sua loai quy trinh
@@ -131,7 +131,7 @@
                     alert("Đã XÓA quy trình có Mã Loại: " + $scope.qt.maloai);
                     $scope.loadloaiQT();
                 }
-                else if(response.data == "2"){
+                else if (response.data == "2") {
                     alert("Bạn cần xóa những trường liên quan đến Mã Loại : " + $scope.qt.maloai);
                 }
                 else { alert("Lỗi Xóa thêm được"); $scope.flag = false; }

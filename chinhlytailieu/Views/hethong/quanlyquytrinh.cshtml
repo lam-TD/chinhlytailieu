@@ -180,17 +180,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>1</td>
+                                                        <tr ng-repeat="q in quytrinh">
+                                                            <td>{{q.MASTT}}</td>
                                                             <td>
                                                                 <div class="input-group input-group-xs">
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control" value="{{q.TENBUOC}}">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="checkbox" style="margin:0;">
                                                                     <label>
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" ng-checked="{{q.NOIBO}}">
                                                                         <span class="text"></span>
                                                                     </label>
                                                                 </div>
@@ -198,7 +198,7 @@
                                                             <td>
                                                                 <div class="checkbox" style="margin:0;">
                                                                     <label>
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" ng-checked="{{q.BATDAU}}" ng-disabled="true">
                                                                         <span class="text"></span>
                                                                     </label>
                                                                 </div>
@@ -206,7 +206,7 @@
                                                             <td>
                                                                 <div class="checkbox" style="margin:0;">
                                                                     <label>
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" ng-checked="{{q.KETTHUC}}">
                                                                         <span class="text"></span>
                                                                     </label>
                                                                 </div>
@@ -214,7 +214,7 @@
                                                             <td>
                                                                 <div class="checkbox" style="margin:0;">
                                                                     <label>
-                                                                        <input type="checkbox">
+                                                                        <input type="checkbox" ng-checked="{{q.KETTHUC}}" ng-disabled="true">
                                                                         <span class="text"></span>
                                                                     </label>
                                                                 </div>

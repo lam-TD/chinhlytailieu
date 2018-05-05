@@ -760,6 +760,7 @@
     <Content Include="Scripts\dangnhap\dangnhap.js" />
     <Content Include="Scripts\dangnhap\thongtinnguoidung.js" />
     <Content Include="Scripts\danhmuc\appdanhmuc.js" />
+    <Content Include="Scripts\danhmuc\coquanluutruController.js" />
     <Content Include="Scripts\danhmuc\coquanluutru\coquanluutru.js" />
     <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\hethong\apphethong.js" />
